@@ -1,0 +1,15 @@
+{
+    user_id: {
+        reviews: [
+            {
+                anime_id
+                genres: [
+
+                ]
+                note
+            }
+            ...
+        ]
+    }
+    ...
+}
