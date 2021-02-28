@@ -1,37 +1,93 @@
 <template>
-    <section class="header-section">
-        <div>
-            <h1>OtakuRealm</h1>
+    <header class="header">
+        <div class="menu-conatiner">
+            <router-link to="/">
+                <span class="logo">OtakuRealm-Logo</span>
+            </router-link>
+            <div class="menu">
+                <router-link to="/" class="menu-link">Home</router-link>
+                <router-link to="/about" class="menu-link">About</router-link>
+            </div>
         </div>
-    </section>
+        <div class="search-bar">
+            <input type="text" class="search-bar-input" placeholder="Search Animes here..."/>
+        </div>
+    </header>
 </template>
 
 <script>
 export default {
-  name: 'HeaderSection'
-  }
-
+    name:"Header"
+    
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
-.header-section{
-    position: relative;
-    background-color: rgb(41, 46, 68);
-    color: #000;
-    height: 200px;
-
+<style scoped>
+.menu-container {
+  display: flex;
+  align-items: center;
 }
 
-.header-section h1{
-
-    padding-top: 20px;
-    color: #FFF;
-    text-align: center;
-    font-weight: normal;
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 24px;
+}
+.menu {
+  display: inline-block;
+  margin-left: 16px;
+}
+.menu-link {
+  margin-left: 16px;
+  text-decoration: none;
+  color: #9e9e9e;
+  transition: 300ms ease-in-out;
 }
 
+.menu-link:hover {
+  color: #fd9330;
+}
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  color: #ececec;
+  text-transform: uppercase;
+  text-decoration: none;
+  -webkit-user-select: none;
+}
 
+.search-bar {
+  margin-left: 20%;
+}
 
+.search-bar-input {
+  border-radius: 25px;
+  background: #272727;
+  border: 2px solid transparent;
+  outline: none;
+  height: 42px;
+  min-width: 520px;
+  color: #9e9e9e;
+  padding-left: 16px;
+  padding-right: 42px;
+  transition: 300ms ease-in-out;
+}
+
+.search-bar-input:focus {
+  border: 2px solid #fd9330;
+  background: #111;
+}
+
+@media (max-width: 1023px) {
+  .search-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 1223px) {
+  .search-bar-input {
+    min-width: 300px;
+  }
+}
 </style>

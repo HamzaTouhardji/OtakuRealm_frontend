@@ -1,18 +1,16 @@
 <template>
-<HeaderSection/>
-<Menu/>
+  <Header/>
+  <router-view></router-view>
 </template>
 
 <script>
-import HeaderSection from './components/Header.vue'
-import Menu from './components/Menu.vue'
-
+import Header from './components/Header.vue'
 export default {
   name: 'App',
-  components: {
-    HeaderSection,
-    Menu
+  components:{
+    Header
   }
+
 }
 
 </script>
@@ -23,7 +21,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
+  margin:0px;
+}
 
-  
+body{
+  margin:0px;
+  background: #111;
 }
 </style>
