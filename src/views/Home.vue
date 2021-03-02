@@ -18,7 +18,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
   name: 'Home',
@@ -56,7 +55,7 @@ export default {
 .featured-horizontal {
   width: inherit;
   height: inherit;
-  background: linear-gradient(to right, #111 30%, transparent 70%);
+  background: linear-gradient(to right, #111 10%, transparent 70%);
 }
 
 .featured-content-title {

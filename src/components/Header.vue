@@ -12,6 +12,9 @@
         <div class="search-bar">
             <input type="text" class="search-bar-input" placeholder="Search Animes here..."/>
         </div>
+        <div class="actions">
+          <router-link to="/login" class="menu-link">Sign in/Log in</router-link>
+        </div>
     </header>
 </template>
 
@@ -31,6 +34,7 @@ export default {
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 60px;
   padding: 0 24px;
 }
@@ -55,10 +59,6 @@ export default {
   text-transform: uppercase;
   text-decoration: none;
   -webkit-user-select: none;
-}
-
-.search-bar {
-  margin-left: 20%;
 }
 
 .search-bar-input {
