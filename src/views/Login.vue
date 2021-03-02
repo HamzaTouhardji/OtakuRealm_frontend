@@ -4,8 +4,8 @@
             <div class="featured-vertical">
                 <div class="featured-horizontal">
                     <div class="featured-content">
-                      <Log/>
-                      <Signup/>
+                      <Log v-if="signin"/>
+                      <Signup v-else/>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@ export default {
     name: "Login",
     data: function() {
       return {
-        signin:false
+        signin:true
       }
     },
     components: {
