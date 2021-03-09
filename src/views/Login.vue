@@ -4,8 +4,18 @@
             <div class="featured-vertical">
                 <div class="featured-horizontal">
                     <div class="featured-content">
-                      <Log v-if="signin"/>
-                      <Signup v-else/>
+                      <div class="form">
+                        <Log v-if="login"/>
+                        <Signup v-else/>
+                      </div>
+                        <div>
+                       <button class="btn" type="button" @click="isVisible" v-if="login">
+                        Create account
+                      </button>
+                      <button class="btn" type="button" @click="isVisible" v-else>
+                        Log-in
+                      </button>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -20,12 +30,17 @@ export default {
     name: "Login",
     data: function() {
       return {
-        signin:true
+        login:true
       }
     },
     components: {
       Log,
       Signup
+    },
+    methods:{
+      isVisible() {
+        this.login = !this.login
+      }
     }
 }
 </script>
@@ -49,6 +64,20 @@ export default {
   width: inherit;
   height: inherit;
   background: linear-gradient(to right, #111 10%, transparent 70%);
+}
+
+.btn{
+    position: absolute;
+    top:80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 12px 0;
 }
 
 </style>

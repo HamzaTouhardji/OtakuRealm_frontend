@@ -1,20 +1,37 @@
 <template>
     <div class="signup-box">
         <h1>Sign-up</h1>
+        <label for="name">Usurname : </label>
         <div class="text-box">
             <i class="fa fa-user" aria-hidden="true"></i>
             <input type="text" placeholder="Username" name="" value="">
         </div>
+        <label for="name">Email : </label>
+        <div class="text-box">
+            <i class="fa fa-send" aria-hidden="true"></i>
+            <input type="email" placeholder="OtakuRealm@mail.com" name="" value="">
+        </div>
+        <label for="name">Confirm your email : </label>
+        <div class="text-box">
+            <i class="fa fa-send" aria-hidden="true"></i>
+            <input type="email" placeholder="OtakuRealm@mail.com" name="" value="">
+        </div>
+        <label for="name">Password: </label>
         <div class="text-box">
             <i class="fa fa-lock" aria-hidden="true"></i>
             <input type="password" placeholder="Password" name="" value="">
         </div>
-        <input class="btn" type="button" name="" value="Log-in">
+        <label for="name">Confirm your password : </label>
+        <div class="text-box">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" placeholder="Password" name="" value="">
+        </div>
+        <input class="btn" type="button" name="" value="Sign-Up">
         
 
     </div>
 </template>
-
+ 
 <script>
 export default {
     name: "Signup"
