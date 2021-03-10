@@ -1,17 +1,28 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="about card text-center m-3">
+    <div class="card-body">Liste des animes: {{ lesAnimes }}</div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: "About",
+  name: "anime-list",
+  data() {
+    return {
+      lesAnimes: null
+    };
+  },
+  created() {
+    // Simple GET request using axios
+    axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
+  }
 };
 </script>
 
 <style scoped>
-.about {
-  color: white;
-}
+ .about {
+   color: white;
+ }
 </style>
