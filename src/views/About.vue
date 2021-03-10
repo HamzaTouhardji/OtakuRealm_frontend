@@ -6,12 +6,12 @@
 
 <script>
 export default {
-    name: "About"
-}
+  name: "About",
+};
 </script>
 
 <style scoped>
- .about{
-     color: white;
- }
+.about {
+  color: white;
+}
 </style>

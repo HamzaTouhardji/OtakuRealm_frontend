@@ -1,28 +1,31 @@
 <template>
-    <header class="header">
-        <div class="menu-conatiner">
-            <router-link to="/">
-                <span class="logo">OtakuRealm-Logo</span>
-            </router-link>
-            <div class="menu">
-                <router-link to="/" class="menu-link">Home</router-link>
-                <router-link to="/about" class="menu-link">About</router-link>
-            </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" class="search-bar-input" placeholder="Search Animes here..."/>
-        </div>
-        <div class="actions">
-          <router-link to="/login" class="menu-link">Sign in/Log in</router-link>
-        </div>
-    </header>
+  <header class="header">
+    <div class="menu-conatiner">
+      <router-link to="/">
+        <span class="logo">OtakuRealm-Logo</span>
+      </router-link>
+      <div class="menu">
+        <router-link to="/" class="menu-link">Home</router-link>
+        <router-link to="/about" class="menu-link">About</router-link>
+      </div>
+    </div>
+    <div class="search-bar">
+      <input
+        type="text"
+        class="search-bar-input"
+        placeholder="Search Animes here..."
+      />
+    </div>
+    <div class="actions">
+      <router-link to="/login" class="menu-link">Sign in/Log in</router-link>
+    </div>
+  </header>
 </template>
 
 <script>
 export default {
-    name:"Header"
-    
-}
+  name: "Header",
+};
 </script>
 
 <style scoped>
