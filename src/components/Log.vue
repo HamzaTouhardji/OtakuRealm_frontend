@@ -10,8 +10,6 @@
             <input type="password" placeholder="Password" name="" value="">
         </div>
         <input class="btn" type="button" name="" value="Log-in">
-        
-
     </div>
 </template>
 
@@ -26,11 +24,8 @@ export default {
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 .login-box{
     width: 280px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color:white; 
+    margin:auto;
+    color:white;
 }
 
 .login-box h1{

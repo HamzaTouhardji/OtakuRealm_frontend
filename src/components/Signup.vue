@@ -43,10 +43,7 @@ export default {
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 .signup-box{
     width: 280px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin:auto;
     color:white; 
 }
 
@@ -95,8 +92,5 @@ export default {
     cursor: pointer;
     margin: 12px 0;
 }
-
-
-
 
 </style>
