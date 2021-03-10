@@ -73,7 +73,7 @@ export default {
     transform: translate(-50%, -50%);
     background: none;
     border: none;
-    color: white;
+    color: rgb(131, 131, 131);
     padding: 5px;
     font-size: 18px;
     cursor: pointer;
