@@ -110,6 +110,24 @@
         <Navigation />
       </template>
     </Carousel>
+    <div class="featured-content">
+      <div class="featured-content-title">Airing Animes</div>
+    </div>
+    <Carousel :settings="settings" :breakpoints="breakpoints">
+      <Slide v-for="slide in images" :key="slide">
+        <div class="carousel__item">
+          <img
+            v-bind:src="slide.src"
+            v-bind:alt="slide.alt"
+            class="card-image"
+          />
+        </div>
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
   </div>
 </template>
 
