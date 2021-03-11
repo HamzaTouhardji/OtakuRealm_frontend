@@ -142,8 +142,13 @@ export default defineComponent({
         itemsToShow: 3.5,
         snapAlign: "center",
       },
+      // 850px and up
+      850: {
+        itemsToShow: 5,
+        snapAlign: "center",
+      },
       // 1024 and up
-      1024: {
+      1250: {
         itemsToShow: 8,
         snapAlign: "start",
       },
@@ -257,7 +262,8 @@ export default defineComponent({
 
 .carousel__item {
   min-height: 200px;
-  width: 100%;
+  width: 200px;
+  height: 15.5vw;
   color: var(--carousel-color-white);
   font-size: 20px;
   border-radius: 8px;
@@ -269,13 +275,14 @@ export default defineComponent({
 .card-image {
   background-size: cover;
   min-height: 200px;
-  width: 200px;
+  width: 11vw;
   height: 15.5vw;
   border-radius: 8px;
 }
 
 .carousel__slide {
   padding: 10px;
+  width: 10%;
 }
 
 .carousel {
