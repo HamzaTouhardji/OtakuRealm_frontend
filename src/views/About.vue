@@ -52,6 +52,7 @@
 </template>
 
 <script>
+
 //import axios from 'axios';
 
 export default {
@@ -64,7 +65,7 @@ export default {
     }
   },
   async created() {
-    // Simple GET request using axios
+    //Simple GET request using axios
     //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
     await this.getAnimes();
   },
@@ -115,7 +116,6 @@ export default {
       });
       await this.getAnimes();
     }
-
   }
 }
 </script>

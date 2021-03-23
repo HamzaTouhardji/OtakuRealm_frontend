@@ -3,19 +3,47 @@
     <h1>Login</h1>
     <div class="text-box">
       <i class="fa fa-user" aria-hidden="true"></i>
-      <input type="text" placeholder="Username" name="" value="" />
+      <input type="text" placeholder="Username" name="username"  v-model="form.username" />
     </div>
     <div class="text-box">
       <i class="fa fa-lock" aria-hidden="true"></i>
-      <input type="password" placeholder="Password" name="" value="" />
+      <input type="password" placeholder="Password" name="password" v-model="form.password" />
     </div>
-    <input class="btn" type="button" name="" value="Log-in" />
+    <input class="btn" type="button" name="" value="Log-in" @click="login" />
   </div>
 </template>
 
 <script>
+
 export default {
   name: "Log",
+  data() {
+    return{
+      form:{
+        username:"",
+        password:"",
+      }
+    }
+
+  },
+
+  methods: {
+    login: function () {
+          fetch('http://otakurealm.mooo.com/api/login', {
+        method: 'post',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({"username": this.form.username, "password": this.form.password})
+      }).then(function (response) {
+            if (response.status === 200 && 'token' in response.body) {
+              alert(response.body)
+            }
+          }, function (err) {
+            console.log('err', err)
+          })
+        }
+  }
 };
 </script>
 
