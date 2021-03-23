@@ -29,6 +29,7 @@ export default {
 
   methods: {
     login: function () {
+          alert("login en cours");
           fetch('http://otakurealm.mooo.com/api/login', {
         method: 'post',
         headers: {
