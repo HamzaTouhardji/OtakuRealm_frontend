@@ -4,35 +4,135 @@
     <label for="name">Usurname : </label>
     <div class="text-box">
       <i class="fa fa-user" aria-hidden="true"></i>
-      <input type="text" placeholder="Username" name="" value="" />
+      <input
+        type="text"
+        placeholder="Username"
+        name="username"
+        v-model="form.username"
+      />
     </div>
     <label for="name">Email : </label>
     <div class="text-box">
       <i class="fa fa-send" aria-hidden="true"></i>
-      <input type="email" placeholder="OtakuRealm@mail.com" name="" value="" />
+      <input
+        type="email"
+        placeholder="OtakuRealm@mail.com"
+        name="email"
+        v-model="form.email"
+      />
     </div>
     <label for="name">Confirm your email : </label>
     <div class="text-box">
       <i class="fa fa-send" aria-hidden="true"></i>
-      <input type="email" placeholder="OtakuRealm@mail.com" name="" value="" />
+      <input
+        type="email"
+        placeholder="OtakuRealm@mail.com"
+        name="email2"
+        v-model="form.email2"
+      />
     </div>
     <label for="name">Password: </label>
     <div class="text-box">
       <i class="fa fa-lock" aria-hidden="true"></i>
-      <input type="password" placeholder="Password" name="" value="" />
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        v-model="form.password"
+      />
     </div>
     <label for="name">Confirm your password : </label>
     <div class="text-box">
       <i class="fa fa-lock" aria-hidden="true"></i>
-      <input type="password" placeholder="Password" name="" value="" />
+      <input
+        type="password"
+        placeholder="Password"
+        name="password2"
+        v-model="form.password2"
+      />
     </div>
-    <input class="btn" type="button" name="" value="Sign-Up" />
+    <input
+      class="btn"
+      type="button"
+      name=""
+      value="Sign-Up"
+      @click="register"
+    />
   </div>
 </template>
  
 <script>
 export default {
   name: "Signup",
+  data() {
+    return {
+      form: {
+        username: "",
+        password: "",
+        password2: "",
+        email: "",
+        email2: "",
+      },
+    };
+  },
+
+  methods: {
+    register: function () {
+      console.log(
+        JSON.stringify({
+          username: this.form.username,
+          password: this.form.password,
+          email: this.form.email,
+        })
+      );
+
+      if (
+        (this.form.mail == this.form.mail2) &&
+        (this.form.password == this.form.password2)
+      ) {
+        fetch("http://otakurealm.mooo.com/api/register/", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: this.form.username,
+            password: this.form.password,
+            email: this.form.email,
+          }),
+        })
+          .then(
+            function (response) {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                console.log("erreur requete");
+                return null;
+              }
+            },
+            function (err) {
+              console.log("err", err);
+            }
+          )
+          .then(this.connect);
+      } else {
+        console.log("pas les meme mdp ou mail");
+      }
+      //animation feedback
+    },
+
+    connect: function (response) {
+      if (response == null) {
+        return null;
+      }
+      if (response.token != undefined) {
+        console.log(response.token); // faire la session et tout
+        this.$router.push("/");
+      } else {
+        console.log("erreur connexion (mauvais mdp ou mail)");
+      }
+    },
+  },
 };
 </script>
 
