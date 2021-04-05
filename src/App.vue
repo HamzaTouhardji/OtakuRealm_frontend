@@ -9,6 +9,11 @@ export default {
   name: 'App',
   components:{
     Header
+  },
+  mounted() {
+    if (localStorage.token) {
+      this.$store.dispatch('authenticated');
+    }
   }
 
 }

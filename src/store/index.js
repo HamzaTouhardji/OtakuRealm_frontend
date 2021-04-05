@@ -82,10 +82,13 @@ export default createStore({
           context.commit('AUTH_LOGOUT');
           context.commit('AUTHENTIFICATION');
           document.cookie = 'token = ';
-          
-          
+    },
+    
+    authenticated(context){
+      context.commit('AUTHENTIFICATION');
 
-  }
+    }
+
 
   },
   modules: {
