@@ -86,7 +86,9 @@ export default createStore({
     authenticated(context){
       context.commit('AUTHENTIFICATION');
 
-    }
+    },
+
+   
 
 
   },
