@@ -127,6 +127,7 @@ export default {
       }
       if (response.token != undefined) {
         console.log(response.token); // faire la session et tout
+        document.cookie = 'token = ' + response.token;
         this.$router.push("/");
       } else {
         console.log("erreur connexion (mauvais mdp ou mail)");

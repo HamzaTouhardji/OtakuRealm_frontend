@@ -17,7 +17,13 @@
       />
     </div>
     <div class="actions">
-      <router-link to="/login" class="menu-link">Sign in/Log in</router-link>
+      <router-link
+        v-if="!$store.state.authenticated"
+        to="/login"
+        class="menu-link"
+        >Sign in/Log in</router-link
+      >
+      <router-link to="/" v-else class="menu-link" @click="logout"> Log_out </router-link>
     </div>
   </header>
 </template>
@@ -25,6 +31,14 @@
 <script>
 export default {
   name: "Header",
+  methods: {
+    logout: function () {
+      this.$store.dispatch('auth_logout').then(() => {
+        this.$router.push("/login");
+        console.log('logout');
+      });
+    },
+  },
 };
 </script>
 

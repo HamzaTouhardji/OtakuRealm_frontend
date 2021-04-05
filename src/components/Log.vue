@@ -35,55 +35,17 @@ export default {
     };
   },
 
+
   methods: {
     login: function () {
-      console.log(
-        JSON.stringify({
+        this.$store.dispatch('getToken',{
           username: this.form.username,
           password: this.form.password,
+          router : this.$router,
         })
-      );
-      //animation feedback
-      fetch("http://otakurealm.mooo.com/api/login/", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: this.form.username,
-          password: this.form.password,
-        }),
-      })
-        .then(
-          function (response) {
-            if (response.status === 200) {
-              return response.json();
-            } else {
-              console.log("erreur requete");
-              return null;
-            }
-          },
-          function (err) {
-            console.log("err", err);
-          }
-        )
-        .then(this.connect);
     },
-
-    connect: function (response) {
-      if (response == null) {
-        return null;
-      }
-      if (response.token != undefined) {
-        console.log(response.token); // faire la session et tout
-        this.$router.push("/");
-      } else {
-        console.log("erreur connexion (mauvais mdp ou mail)");
-      }
-    },
-  },
-
-  
+    //animation feedback
+  }
 };
 </script>
 

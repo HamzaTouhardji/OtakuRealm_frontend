@@ -2,11 +2,14 @@
   "name": "otaku-realm",
   "version": "0.1.0",
   "private": true,
+  "description": "## Project setup ``` npm install ```",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "babel.config.js",
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
@@ -15,13 +18,16 @@
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vue3-carousel": "^0.1.12"
+    "vue-session": "^1.0.0",
+    "vue3-carousel": "^0.1.12",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.12",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
@@ -55,12 +61,9 @@
     "last 2 versions",
     "not dead"
   ],
-  "description": "## Project setup ``` npm install ```",
-  "main": "babel.config.js",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://forge.univ-lyon1.fr/otakurealm/otakurealm.git"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
