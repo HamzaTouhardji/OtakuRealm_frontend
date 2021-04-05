@@ -7,18 +7,10 @@ import router from '../router/index.js';
 export default createStore({
   state: {
     authenticated: false,
-    token:''
   },
   mutations: {
     AUTHENTIFICATION(state) {
       state.authenticated =!state.authenticated;
-    },
-    AUTH_SUCCESS: (state, token) => {
-      state.token = token
-    },
-
-    AUTH_LOGOUT: (state) => {
-      state.token = ''
     },
 
   },
@@ -62,9 +54,6 @@ export default createStore({
               console.log(response.token); // faire la session et tout
               document.cookie = 'token = ' + response.token;
 
-              const token = response.token;
-              localStorage.setItem('user-token', token)
-              context.commit('AUTH_SUCCESS', token);
               context.commit('AUTHENTIFICATION');
               
               if (context.state.authenticated == true) {
@@ -78,19 +67,13 @@ export default createStore({
     },
 
     auth_logout(context){
-          context.commit('AUTH_LOGOUT');
           context.commit('AUTHENTIFICATION');
           document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     },
-    
     authenticated(context){
       context.commit('AUTHENTIFICATION');
 
     },
-
-   
-
-
   },
   modules: {
   }

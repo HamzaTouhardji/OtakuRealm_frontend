@@ -4,7 +4,15 @@
 </template>
 
 <script>
- function getCookie(cname) {
+ 
+import Header from './components/Header.vue'
+export default {
+  name: 'App',
+  components:{
+    Header
+  },
+  methods:{
+    getCookie: function(cname) {
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
       var ca = decodedCookie.split(';');
@@ -19,14 +27,10 @@
       }
       return "";
     }
-import Header from './components/Header.vue'
-export default {
-  name: 'App',
-  components:{
-    Header
+
   },
   mounted() {    
-      if(getCookie('token')!="")
+      if(this.getCookie('token')!="")
         this.$store.dispatch('authenticated');
   }
 
