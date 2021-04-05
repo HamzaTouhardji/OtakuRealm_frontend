@@ -63,7 +63,7 @@
       <Slide v-for="slide in images" :key="slide">
         <div class="carousel__item">
           <img
-            v-bind:src="slide.src"
+            v-bind:src="slide.URL"
             v-bind:alt="slide.alt"
             class="card-image"
           />
@@ -78,10 +78,28 @@
       <div class="featured-content-title">Top Anime</div>
     </div>
     <Carousel :settings="settings" :breakpoints="breakpoints">
+      <Slide v-for="anime in animes" :key="anime">
+        <div class="carousel__item">
+          <img
+            v-bind:src="anime.URL"
+            v-bind:alt="anime.title"
+            class="card-image"
+          />
+        </div>
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
+    <div class="featured-content">
+      <div class="featured-content-title">Airing Animes</div>
+    </div>
+    <Carousel :settings="settings" :breakpoints="breakpoints">
       <Slide v-for="slide in images" :key="slide">
         <div class="carousel__item">
           <img
-            v-bind:src="slide.src"
+            v-bind:src="slide.URL"
             v-bind:alt="slide.alt"
             class="card-image"
           />
@@ -99,25 +117,7 @@
       <Slide v-for="slide in images" :key="slide">
         <div class="carousel__item">
           <img
-            v-bind:src="slide.src"
-            v-bind:alt="slide.alt"
-            class="card-image"
-          />
-        </div>
-      </Slide>
-
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
-    <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
-    </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
-        <div class="carousel__item">
-          <img
-            v-bind:src="slide.src"
+            v-bind:src="slide.URL"
             v-bind:alt="slide.alt"
             class="card-image"
           />
@@ -147,6 +147,13 @@ export default defineComponent({
     Navigation,
   },
   data: () => ({
+    animes: [],
+    async created() {
+    //Simple GET request using axios
+    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
+    console.log('calling');
+    await this.getAnimes();
+  },
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -173,61 +180,73 @@ export default defineComponent({
     },
     images: [
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1000/110531.jpg?s=3df5ebb6800604dc04c6a6187dd7161b",
         alt: "Shingeki no Kyojin: The Final Season",
       },
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1132/110666.jpg?s=a5a23105e2245e9f5ea0499be2fce9a8",
         alt: "Re:Zero kara Hajimeru Isekai Seikatsu 2nd Season Part 2",
       },
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1255/110636.jpg?s=2b6005aafc62e746b64d224e60a5a8b4",
         alt: "Yuru Camp△ Season 2",
       },
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1171/109222.jpg?s=f5508bab9e7d610a28f12d1828a6ee79",
         alt: "Jujutsu Kaisen (TV)",
       },
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1791/110336.jpg?s=6afe0e38492f034cbd6f1b13d782e52f",
         alt: "Horimiya",
       },
       {
-        src:
+        URL:
           "https://cdn.myanimelist.net/images/anime/1259/110227.jpg?s=08c77f58ab974a8fc36af5e2eac9040a",
         alt: "Holo no Graffiti",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
       {
-        src: "",
+        URL: "",
         alt: "",
       },
     ],
-  }),
+    
+  }
+  ),
+  methods: {
+    async getAnimes(){
+      var response = await fetch('http://otakurealm.mooo.com/api/recommandation');
+      console.log('anime');
+      console.log(this.animes.length);
+      this.animes = await response.json();
+      console.log(this.animes.length);
+      console.log(this.animes);
+    },
+  }
 });
 </script>
 <style scoped>

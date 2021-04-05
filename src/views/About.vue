@@ -79,7 +79,7 @@ export default {
     },
 
     async getAnimes(){
-      var response = await fetch('http://0.0.0.0:8000/api/recommandation');
+      var response = await fetch('http://otakurealm.mooo.com/api/recommandation');
       this.animes = await response.json();
     },
     async createAnime(){
