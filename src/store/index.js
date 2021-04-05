@@ -7,7 +7,7 @@ import router from '../router/index.js';
 export default createStore({
   state: {
     authenticated: false,
-    token: localStorage.getItem('user-token') || ''
+    token:''
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -18,7 +18,7 @@ export default createStore({
     },
 
     AUTH_LOGOUT: (state) => {
-      state.token = ""
+      state.token = ''
     },
 
   },
@@ -78,10 +78,9 @@ export default createStore({
     },
 
     auth_logout(context){
-          localStorage.removeItem('user-token')
           context.commit('AUTH_LOGOUT');
           context.commit('AUTHENTIFICATION');
-          document.cookie = 'token = ';
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     },
     
     authenticated(context){

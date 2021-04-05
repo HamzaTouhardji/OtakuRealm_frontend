@@ -10,10 +10,10 @@ export default {
   components:{
     Header
   },
-  mounted() {
-    if (localStorage.token) {
-      this.$store.dispatch('authenticated');
-    }
+  mounted() {    
+      console.log(document.cookie);
+      if(document.cookie!="")
+        this.$store.dispatch('authenticated');
   }
 
 }
