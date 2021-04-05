@@ -75,7 +75,7 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
+      <div class="featured-content-title">Top Anime</div>
     </div>
     <Carousel :settings="settings" :breakpoints="breakpoints">
       <Slide v-for="slide in images" :key="slide">
