@@ -25,7 +25,7 @@
       >
     <template v-else>
       <router-link to="/profil" class="menu-link" > Profil </router-link>
-      <router-link to="/" class="menu-link" @click="logout"> Log_out </router-link>  
+      <router-link to="/" class="menu-link" @click="logout"> Log out </router-link>  
     </template>
     </div>
   </header>
