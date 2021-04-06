@@ -59,14 +59,17 @@
     <div class="featured-content">
       <div class="featured-content-title">Airing Animes</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
+      <Slide v-for="anime in animes" :key="anime.id">
         <div class="carousel__item">
+          <a v-bind:href="'#/detailanime?id='+ anime.id">
           <img
-            v-bind:src="slide.URL"
-            v-bind:alt="slide.alt"
+            v-bind:src="anime.URL"
+            v-bind:alt="anime.title"
             class="card-image"
+            draggable="false"
           />
+          </a>
         </div>
       </Slide>
 
@@ -77,13 +80,35 @@
     <div class="featured-content">
       <div class="featured-content-title">Top Anime</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="anime in animes" :key="anime">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
+      <Slide v-for="anime in animes" :key="anime.id">
         <div class="carousel__item">
+          <a v-bind:href="'#/detailanime?id='+ anime.id">
           <img
             v-bind:src="anime.URL"
             v-bind:alt="anime.title"
             class="card-image"
+            draggable="false"
+          />
+          </a>
+        </div>
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
+    <div class="featured-content">
+      <div class="featured-content-title">Airing Animes</div>
+    </div>
+    <Carousel :settings="settings" :breakpoints="breakpoints">
+      <Slide v-for="slide in images" :key="slide">
+        <div class="carousel__item">
+          <img
+            v-bind:src="slide.URL"
+            v-bind:alt="slide.alt"
+            class="card-image"
+            draggable="false"
           />
         </div>
       </Slide>
@@ -102,24 +127,7 @@
             v-bind:src="slide.URL"
             v-bind:alt="slide.alt"
             class="card-image"
-          />
-        </div>
-      </Slide>
-
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
-    <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
-    </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
-        <div class="carousel__item">
-          <img
-            v-bind:src="slide.URL"
-            v-bind:alt="slide.alt"
-            class="card-image"
+            draggable="false"
           />
         </div>
       </Slide>
@@ -147,13 +155,8 @@ export default defineComponent({
     Navigation,
   },
   data: () => ({
+    update: 0,
     animes: [],
-    async created() {
-    //Simple GET request using axios
-    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
-    console.log('calling');
-    await this.getAnimes();
-  },
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -234,17 +237,17 @@ export default defineComponent({
         alt: "",
       },
     ],
-    
-  }
-  ),
+  }),
+    async created() {
+    //Simple GET request using axios
+    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
+    await this.getAnimes();
+  },
   methods: {
     async getAnimes(){
-      var response = await fetch('http://otakurealm.mooo.com/api/recommandation');
-      console.log('anime');
-      console.log(this.animes.length);
+      var response = await fetch('http://otakurealm.mooo.com/api/anime');
       this.animes = await response.json();
-      console.log(this.animes.length);
-      console.log(this.animes);
+      this.update+=1;
     },
   }
 });

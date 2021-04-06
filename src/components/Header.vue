@@ -23,7 +23,10 @@
         class="menu-link"
         >Sign in/Log in</router-link
       >
-      <router-link to="/" v-else class="menu-link" @click="logout"> Log_out </router-link>
+    <template v-else>
+      <router-link to="/profil" class="menu-link" > Profil </router-link>
+      <router-link to="/" class="menu-link" @click="logout"> Log_out </router-link>  
+    </template>
     </div>
   </header>
 </template>
