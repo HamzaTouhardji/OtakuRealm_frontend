@@ -62,7 +62,7 @@
     <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
       <Slide v-for="anime in animes" :key="anime.id">
         <div class="carousel__item">
-          <a v-bind:href="'#/detailanime?id='+ anime.id">
+          <a v-bind:href="'#/detailanime?id='+ anime.id" draggable="false">
           <img
             v-bind:src="anime.URL"
             v-bind:alt="anime.title"
@@ -83,7 +83,7 @@
     <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
       <Slide v-for="anime in animes" :key="anime.id">
         <div class="carousel__item">
-          <a v-bind:href="'#/detailanime?id='+ anime.id">
+          <a v-bind:href="'#/detailanime?id='+ anime.id" draggable="false">
           <img
             v-bind:src="anime.URL"
             v-bind:alt="anime.title"

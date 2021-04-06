@@ -38,7 +38,6 @@
 
 
 <script>
-
 export default ({
   name: "Home",
   data: () => ({
@@ -75,12 +74,14 @@ export default ({
   },
   methods: {
     async getAnimes(){
-      var id = window.location.href.substr(39);
+      var id = this.$route.query.id
       var response = await fetch('http://otakurealm.mooo.com/api/anime/'+id)
       this.anime = await response.json();
     },
   }
 });
+
+
 </script>
 <style scoped>
 
