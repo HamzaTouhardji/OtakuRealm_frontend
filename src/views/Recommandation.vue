@@ -7,7 +7,12 @@
             <div class="checkbox">
                 <h1>Recommandation</h1>
                 <input type="checkbox" id="todo" name="todo" value="todo">
-                <label for="todo" data-content="Get out of bed">Get out of bed</label>
+                <label for="todo" data-content="Get out of bed">Romantique</label>
+            </div>
+            <div class="checkbox">
+                <h1>Recommandation</h1>
+                <input type="checkbox" id="todo" name="todo" value="todo">
+                <label for="todo" data-content="Get out of bed">Romantique</label>
             </div>
           </div>
         </div>
@@ -32,7 +37,7 @@ export default {
   height: calc(100vh);
   background-size: cover;
   background-position: center;
-  background-image: url(https://images.alphacoders.com/718/718631.png);
+  background-image: url(https://images3.alphacoders.com/144/thumb-1920-144565.jpg);
 }
 
 .featured-vertical {
@@ -72,7 +77,7 @@ export default {
 .checkbox h1{
   //float: left;
   font-size: 40px;
-  border-bottom: 6px solid #FC5B5B;
+  border-bottom: 6px solid #D42525;
   margin-bottom: 50px;
   padding: 13px 0px;
 }
