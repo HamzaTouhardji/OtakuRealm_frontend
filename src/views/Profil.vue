@@ -139,6 +139,18 @@ export default defineComponent({
       },
     ],
   }),
+  async created() {
+    //Simple GET request using axios
+    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
+    await this.getAnimes();
+  },
+  methods: {
+    async getAnimes(){
+      var response = await fetch('http://otakurealm.mooo.com/api/info_utilisateur')
+      this.anime = await response.json();
+      console.log(this.anime)
+    },
+  }
 });
 </script>
 <style scoped>
