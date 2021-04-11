@@ -20,7 +20,7 @@ export default createStore({
         username: credentials.username,
         password: credentials.password,
       }));
-      fetch("http://otakurealm.mooo.com/login/", {
+      fetch("http://otakurealm.mooo.com/api/login/", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
