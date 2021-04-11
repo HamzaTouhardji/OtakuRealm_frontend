@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profil from '../views/Profil.vue'
 import DetailAnime from '../views/DetailAnime.vue'
+import Recommandation from '../views/Recommandation'
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     name: 'Login',
     component: Login
 
+  },
+  {
+    path: '/recommandation',
+    name: 'Recommandation',
+    component: Recommandation
   },
   {
     path: '/profil',
