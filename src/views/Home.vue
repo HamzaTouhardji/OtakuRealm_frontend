@@ -23,10 +23,10 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
+      <div class="featured-content-title">Top all time</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
-      <Slide v-for="anime in $store.state.animes" :key="anime.id">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animesAllTime">
+      <Slide v-for="anime in $store.state.animesAllTime" :key="anime.id">
         <div class="carousel__item">
           <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
             <img

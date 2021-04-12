@@ -9,10 +9,10 @@
               <div class="featured-content">
                 <div class="featured-content-title">Profil</div>
                 <span class="featured-content-synopsis">
-                  <img class="photo" src="https://pbs.twimg.com/profile_images/1338309685842227201/PZ_4W_Zi_200x200.jpg">
-                  <p>Pseudo : Joseph</p>
-                  <p>Sexe : Masculin</p>
-                  <p>Age : 22 ans</p>
+                  <img class="photo" v-bind:src="userInfo[0].photo_de_profil">
+                  <p>{{userInfo[0].bio}}</p>
+                  <p>Sex: {{userInfo[0].sexe}}</p>
+                  <p>Age: {{userInfo[0].age}}</p>
                 </span>
               </div>
             </div>
@@ -58,6 +58,7 @@ export default defineComponent({
     Navigation,
   },
   data: () => ({
+    userInfo:[{}],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -145,10 +146,26 @@ export default defineComponent({
     await this.getInfoUser();
   },
   methods: {
+    getCookie: function(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
     async getInfoUser(){
    
       let headers = {"Content-Type": "application/json"};
-      headers["Authorization"] = `Token c9eb93284c75ff5bf5a810e25c7be714aea9c600`;
+      console.log(this.getCookie('token'));
+      headers["Authorization"] = `Token ` + this.getCookie('token');
       var response = await fetch('http://otakurealm.mooo.com/api/info_utilisateur/',{headers})
       this.userInfo = await response.json();
       console.log(this.userInfo)

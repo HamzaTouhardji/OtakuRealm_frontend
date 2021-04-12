@@ -8,7 +8,8 @@ export default createStore({
   state: {
     authenticated: false,
     genre: [],
-    animes:[]
+    animes:[],
+    animesAllTime:[]
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -25,6 +26,13 @@ export default createStore({
     SETANIME(state,response){
       response.json().then((values) => {
       state.animes=values;
+      console.log(values);
+      });
+    },
+
+    SETANIMEALLTIME(state,response){
+      response.json().then((values) => {
+      state.animesAllTime=values;
       console.log(values);
       });
     },
@@ -98,6 +106,8 @@ export default createStore({
     async getAnimes(context){
       var response = await fetch('http://otakurealm.mooo.com/api/anime');
       context.commit("SETANIME",response);
+      response = await fetch('http://otakurealm.mooo.com/api/anime_allTime');
+      context.commit("SETANIMEALLTIME",response);
     },
   },
  
