@@ -33,7 +33,6 @@ export default {
       if(this.getCookie('token')!="")
         this.$store.dispatch('authenticated');
   }
-
 }
 
 </script>

@@ -5,23 +5,27 @@
         <div class="featured-horizontal">
           <div class="featured-content">
             <div class="checkbox">
-                <h3>Renseignez vos genres favoris</h3>
-                <div class=genres>
-                  <div class="genre" v-for="item in genres" :key="item.genre">
-                    <input type="checkbox" v-bind:id="item.genre" v-bind:value="item.genre" v-model="selected">
-                    <label v-bind:for="item.genre" >{{item.genre}}</label>
-                  </div>
+              <h3>Renseignez vos genres favoris</h3>
+              <div class="genres">
+                <div
+                  class="genre"
+                  v-for="item in $store.state.genre"
+                  :key="item.id"
+                >
+                  <input
+                    type="checkbox"
+                    v-bind:id="item.id"
+                    v-bind:value="item.id"
+                    v-model="selected"
+                  />
+                  <label v-bind:for="item.id">{{ item.name }}</label>
                 </div>
+              </div>
 
-                <span>selected : {{selected}} </span>
-
-                
-
+              <span>selected : {{ selected }} </span>
             </div>
             <div class="checkbox">
-                <h1>Recommandation</h1>
-                <input type="checkbox" id="todo" name="todo" value="todo">
-                <label for="todo" data-content="Get out of bed">Romantique</label>
+              <h3>Renseignez vos animés</h3>
             </div>
           </div>
         </div>
@@ -35,33 +39,25 @@ export default {
   name: "Recommandation",
   data: function () {
     return {
-      genres: [
-      { genre: 'Hentai'},
-      { genre: 'Shounen'},
-      { genre: 'Romantique' },
-      { genre: 'Drama'},
-      { genre: 'Jojo'},
-      { genre: 'Nono'},
-      { genre: 'Momo'},
-      { genre: 'Hamham'},
-      { genre: 'la street'},
-      ],
-      selected:[]
+      selected: [],
     };
   },
 
   methods: {},
+
+  mounted() {
+    this.$store.dispatch("getGenre");
+  },
 };
 </script>
 
 <style scoped>
-.genres{
-  display:flex;
+.genres {
+  display: flex;
   flex-wrap: wrap;
-  
 }
 
-.genre{
+.genre {
   margin-right: 20px;
 }
 
@@ -106,12 +102,11 @@ export default {
   color: white;
 }
 
-.checkbox h3{
+.checkbox h3 {
   //float: left;
   //font-size: 40px;
-  border-bottom: 6px solid #D42525;
+  border-bottom: 6px solid #d42525;
   margin-bottom: 50px;
   padding: 13px 0px;
 }
-
 </style>

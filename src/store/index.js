@@ -7,10 +7,18 @@ import router from '../router/index.js';
 export default createStore({
   state: {
     authenticated: false,
+    genre: []
   },
   mutations: {
     AUTHENTIFICATION(state) {
       state.authenticated =!state.authenticated;
+    },
+
+    SETGENRE(state,response){
+      response.json().then((values) => {
+      state.genre=values;
+      console.log(values);
+      });
     },
 
   },
@@ -72,9 +80,14 @@ export default createStore({
     },
     authenticated(context){
       context.commit('AUTHENTIFICATION');
+    },
 
+    async getGenre(context) {
+      var response = await fetch('http://otakurealm.mooo.com/api/genre');
+      context.commit("SETGENRE",response);
     },
   },
+ 
   modules: {
   }
 })
