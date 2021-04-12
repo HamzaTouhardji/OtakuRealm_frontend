@@ -20,49 +20,8 @@
             </div>
             <div class="checkbox">
                 <h1>Recommandation</h1>
-                
- <div class="container py-5">
-    <div id="myTabContent" class="tab-content">
-      <div class="tab-pane fade py-4 px-4 show active" id="home">
-        <div class="row">
-          <div class="col-lg-12 mx-auto" >
-            <div class="card rounded shadow border-0" >
-              <div class="card-body p-5 bg-white rounded">
-                <div class="table-responsive">
-                  <table id="example" style="width:100%" class="table table-striped table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Adresse mail</th>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Type</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                      <tr>
-                        <td>aaa</td>
-                        <td>aaa</td>
-                        <td>aaa</td>
-                        <td>aaa</td>
-                      </tr>
-                       <tr>
-                        <td>addddaa</td>
-                        <td>aaa</td>
-                        <td>aaa</td>
-                        <td>aaa</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
+                <input type="checkbox" id="todo" name="todo" value="todo">
+                <label for="todo" data-content="Get out of bed">Romantique</label>
             </div>
           </div>
         </div>
