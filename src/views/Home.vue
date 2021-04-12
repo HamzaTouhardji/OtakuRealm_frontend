@@ -46,8 +46,8 @@
     <div class="featured-content">
       <div class="featured-content-title">Top Anime Spring 2021</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
-      <Slide v-for="anime in $store.state.animes" :key="anime.id">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animesSeason">
+      <Slide v-for="anime in $store.state.animesSeason" :key="anime.id">
         <div class="carousel__item">
           <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
             <img
