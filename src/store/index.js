@@ -7,7 +7,8 @@ import router from '../router/index.js';
 export default createStore({
   state: {
     authenticated: false,
-    genre: []
+    genre: [],
+    animes:[]
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -17,6 +18,13 @@ export default createStore({
     SETGENRE(state,response){
       response.json().then((values) => {
       state.genre=values;
+      console.log(values);
+      });
+    },
+
+    SETANIME(state,response){
+      response.json().then((values) => {
+      state.animes=values;
       console.log(values);
       });
     },
@@ -85,6 +93,11 @@ export default createStore({
     async getGenre(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/genre');
       context.commit("SETGENRE",response);
+    },
+
+    async getAnimes(context){
+      var response = await fetch('http://otakurealm.mooo.com/api/anime');
+      context.commit("SETANIME",response);
     },
   },
  

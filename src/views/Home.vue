@@ -1,31 +1,15 @@
 
 <template>
   <div class="home">
-    <Carousel>
-      <Slide v-for="slide in 10" :key="slide">
-        <div class="featured">
+    <Carousel :key="update2">
+      <Slide v-for="slide in animesHead" :key="slide">
+        <div class="featured" v-bind:style =" { 'background-image': 'url('+slide.URL+')'}">
           <div class="featured-vertical">
             <div class="featured-horizontal">
               <div class="featured-content">
-                <div class="featured-content-title">Kimestsu no Yaiba</div>
+                <div class="featured-content-title">{{slide.title}}</div>
                 <span class="featured-content-synopsis">
-                  Ever since the death of his father, the burden of supporting
-                  the family has fallen upon Tanjirou Kamado's shoulders. Though
-                  living impoverished on a remote mountain, the Kamado family
-                  are able to enjoy a relatively peaceful and happy life. One
-                  day, Tanjirou decides to go down to the local village to make
-                  a little money selling charcoal. On his way back, night falls,
-                  forcing Tanjirou to take shelter in the house of a strange
-                  man, who warns him of the existence of flesh-eating demons
-                  that lurk in the woods at night. When he finally arrives back
-                  home the next day, he is met with a horrifying sight—his whole
-                  family has been slaughtered. Worse still, the sole survivor is
-                  his sister Nezuko, who has been turned into a bloodthirsty
-                  demon. Consumed by rage and hatred, Tanjirou swears to avenge
-                  his family and stay by his only remaining sibling. Alongside
-                  the mysterious group calling themselves the Demon Slayer
-                  Corps, Tanjirou will do whatever it takes to slay the demons
-                  and protect the remnants of his beloved sister's humanity.
+                  {{slide.synopsis}}
                 </span>
               </div>
             </div>
@@ -38,37 +22,19 @@
         <Pagination />
       </template>
     </Carousel>
-    <!--  <Carousel :settings="settings" :breakpoints="breakpoints">
-          <Slide>
-            <div class="carousel__item"><img src="https://cdn.myanimelist.net/images/anime/1000/110531.jpg?s=3df5ebb6800604dc04c6a6187dd7161b" alt="Shingeki no Kyojin: The Final Season" class="card-image, carousel__item"></div>
-          </Slide>
-          <Slide>
-            <div class="carousel__item"><img src="https://cdn.myanimelist.net/images/anime/1132/110666.jpg?s=a5a23105e2245e9f5ea0499be2fce9a8" alt="Re:Zero kara Hajimeru Isekai Seikatsu 2nd Season Part 2" class="card-image, carousel__item"></div>
-          </Slide>
-          <Slide>
-            <div class="carousel__item"><img src="https://cdn.myanimelist.net/images/anime/1255/110636.jpg?s=2b6005aafc62e746b64d224e60a5a8b4" alt="Yuru Camp△ Season 2" class="card-image, carousel__item"></div>
-          </Slide>
-          <Slide>
-            <div class="carousel__item"><img src="https://cdn.myanimelist.net/images/anime/1171/109222.jpg?s=f5508bab9e7d610a28f12d1828a6ee79" alt="Jujutsu Kaisen (TV)" class="card-image, carousel__item"></div>
-          </Slide>
-
-          <template #addons>
-            <Navigation />
-          </template>
-        </Carousel> -->
     <div class="featured-content">
       <div class="featured-content-title">Airing Animes</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
-      <Slide v-for="anime in animes" :key="anime.id">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
+      <Slide v-for="anime in $store.state.animes" :key="anime.id">
         <div class="carousel__item">
-          <a v-bind:href="'#/detailanime?id='+ anime.id" draggable="false">
-          <img
-            v-bind:src="anime.URL"
-            v-bind:alt="anime.title"
-            class="card-image"
-            draggable="false"
-          />
+          <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
+            <img
+              v-bind:src="anime.URL"
+              v-bind:alt="anime.title"
+              class="card-image"
+              draggable="false"
+            />
           </a>
         </div>
       </Slide>
@@ -78,18 +44,18 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Top Anime</div>
+      <div class="featured-content-title">Top Anime Spring 2021</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="update">
-      <Slide v-for="anime in animes" :key="anime.id">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
+      <Slide v-for="anime in $store.state.animes" :key="anime.id">
         <div class="carousel__item">
-          <a v-bind:href="'#/detailanime?id='+ anime.id" draggable="false">
-          <img
-            v-bind:src="anime.URL"
-            v-bind:alt="anime.title"
-            class="card-image"
-            draggable="false"
-          />
+          <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
+            <img
+              v-bind:src="anime.URL"
+              v-bind:alt="anime.title"
+              class="card-image"
+              draggable="false"
+            />
           </a>
         </div>
       </Slide>
@@ -99,36 +65,19 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
+      <div class="featured-content-title">Top Anime 2021</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
+      <Slide v-for="anime in $store.state.animes" :key="anime.id">
         <div class="carousel__item">
-          <img
-            v-bind:src="slide.URL"
-            v-bind:alt="slide.alt"
-            class="card-image"
-            draggable="false"
-          />
-        </div>
-      </Slide>
-
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
-    <div class="featured-content">
-      <div class="featured-content-title">Airing Animes</div>
-    </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
-        <div class="carousel__item">
-          <img
-            v-bind:src="slide.URL"
-            v-bind:alt="slide.alt"
-            class="card-image"
-            draggable="false"
-          />
+          <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
+            <img
+              v-bind:src="anime.URL"
+              v-bind:alt="anime.title"
+              class="card-image"
+              draggable="false"
+            />
+          </a>
         </div>
       </Slide>
 
@@ -156,7 +105,9 @@ export default defineComponent({
   },
   data: () => ({
     update: 0,
+    update2: 0,
     animes: [],
+    animesHead: [],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -181,83 +132,36 @@ export default defineComponent({
         snapAlign: "start",
       },
     },
-    images: [
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1000/110531.jpg?s=3df5ebb6800604dc04c6a6187dd7161b",
-        alt: "Shingeki no Kyojin: The Final Season",
-      },
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1132/110666.jpg?s=a5a23105e2245e9f5ea0499be2fce9a8",
-        alt: "Re:Zero kara Hajimeru Isekai Seikatsu 2nd Season Part 2",
-      },
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1255/110636.jpg?s=2b6005aafc62e746b64d224e60a5a8b4",
-        alt: "Yuru Camp△ Season 2",
-      },
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1171/109222.jpg?s=f5508bab9e7d610a28f12d1828a6ee79",
-        alt: "Jujutsu Kaisen (TV)",
-      },
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1791/110336.jpg?s=6afe0e38492f034cbd6f1b13d782e52f",
-        alt: "Horimiya",
-      },
-      {
-        URL:
-          "https://cdn.myanimelist.net/images/anime/1259/110227.jpg?s=08c77f58ab974a8fc36af5e2eac9040a",
-        alt: "Holo no Graffiti",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-      {
-        URL: "",
-        alt: "",
-      },
-    ],
   }),
-    async created() {
+  async created() {
     //Simple GET request using axios
     //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
-    await this.getAnimes();
+      await this.getAnimesHead();
   },
   methods: {
-    async getAnimes(){
-      var response = await fetch('http://otakurealm.mooo.com/api/anime');
-      this.animes = await response.json();
-      this.update+=1;
+    
+    async getAnimesHead() {
+      var response = await fetch("http://otakurealm.mooo.com/api/anime/1");
+      this.animesHead.push(await response.json());
+      response = await fetch("http://otakurealm.mooo.com/api/anime/20");
+      this.animesHead.push(await response.json());
+      response = await fetch("http://otakurealm.mooo.com/api/anime/21");
+      this.animesHead.push(await response.json());
+      console.log(this.animesHead);
+      this.update2 +=1;
     },
-  }
+  },
+  beforeCreate() {
+    this.$store.dispatch("getAnimes");
+  },
 });
 </script>
 <style scoped>
 .featured {
   height: calc(70vh);
-  background-size: cover;
+  /*background-size: cover;*/
   background-position: center;
-  background-image: url(https://pbs.twimg.com/media/EVP0f8iUwAIjf4w?format=jpg&name=4096x4096);
+  /*background-image: url(https://pbs.twimg.com/media/EVP0f8iUwAIjf4w?format=jpg&name=4096x4096);*/
 }
 
 .featured-content {
