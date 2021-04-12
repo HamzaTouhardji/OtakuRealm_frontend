@@ -114,9 +114,13 @@ export default createStore({
     async getAnimes(context){
       var response = await fetch('http://otakurealm.mooo.com/api/anime');
       context.commit("SETANIME",response);
-      response = await fetch('http://otakurealm.mooo.com/api/anime_allTime');
+    },
+    async getAnimesTopAll(context){
+      var response = await fetch('http://otakurealm.mooo.com/api/anime_allTime');
       context.commit("SETANIMEALLTIME",response);
-      response = await fetch('http://otakurealm.mooo.com/api/anime_saison');
+    },
+    async getAnimesSeason(context){
+      var response = await fetch('http://otakurealm.mooo.com/api/anime_saison');
       context.commit("SETANIMESEASON",response);
     },
   },

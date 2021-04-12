@@ -153,6 +153,8 @@ export default defineComponent({
   },
   beforeCreate() {
     this.$store.dispatch("getAnimes");
+    this.$store.dispatch("getAnimesTopAll");
+    this.$store.dispatch("getAnimesSeason");
   },
 });
 </script>
