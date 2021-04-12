@@ -10,7 +10,8 @@ export default createStore({
     genre: [],
     animes:[],
     animesAllTime:[],
-    animesSeason:[]
+    animesSeason:[],
+    animeYear:[]
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -20,28 +21,30 @@ export default createStore({
     SETGENRE(state,response){
       response.json().then((values) => {
       state.genre=values;
-      console.log(values);
       });
     },
 
     SETANIME(state,response){
       response.json().then((values) => {
       state.animes=values;
-      console.log(values);
       });
     },
 
     SETANIMEALLTIME(state,response){
       response.json().then((values) => {
       state.animesAllTime=values;
-      console.log(values);
       });
     },
 
     SETANIMESEASON(state,response){
       response.json().then((values) => {
       state.animesSeason=values;
-      console.log(values);
+      });
+    },
+
+    SETANIMEYEAR(state,response){
+      response.json().then((values) => {
+      state.animeYear=values;
       });
     },
 
@@ -122,6 +125,10 @@ export default createStore({
     async getAnimesSeason(context){
       var response = await fetch('http://otakurealm.mooo.com/api/anime_saison');
       context.commit("SETANIMESEASON",response);
+    },
+    async getAnimesYear(context){
+      var response = await fetch('http://otakurealm.mooo.com/api/anime_annee');
+      context.commit("SETANIMEYEAR",response);
     },
   },
  

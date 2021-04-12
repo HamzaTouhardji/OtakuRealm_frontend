@@ -67,8 +67,8 @@
     <div class="featured-content">
       <div class="featured-content-title">Top Anime 2021</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
-      <Slide v-for="anime in $store.state.animes" :key="anime.id">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animeYear">
+      <Slide v-for="anime in $store.state.animeYear" :key="anime.id">
         <div class="carousel__item">
           <a v-bind:href="'#/detailanime?id=' + anime.id" draggable="false">
             <img
@@ -155,6 +155,7 @@ export default defineComponent({
     this.$store.dispatch("getAnimes");
     this.$store.dispatch("getAnimesTopAll");
     this.$store.dispatch("getAnimesSeason");
+    this.$store.dispatch("getAnimesYear");
   },
 });
 </script>
