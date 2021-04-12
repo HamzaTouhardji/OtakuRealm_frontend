@@ -146,7 +146,10 @@ export default defineComponent({
   },
   methods: {
     async getInfoUser(){
-      var response = await fetch('http://otakurealm.mooo.com/api/info_utilisateur/')
+   
+      let headers = {"Content-Type": "application/json"};
+      headers["Authorization"] = `Token c9eb93284c75ff5bf5a810e25c7be714aea9c600`;
+      var response = await fetch('http://otakurealm.mooo.com/api/info_utilisateur/',{headers})
       this.userInfo = await response.json();
       console.log(this.userInfo)
     },
