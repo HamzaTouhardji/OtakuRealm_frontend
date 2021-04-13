@@ -5,20 +5,21 @@
         <div class="featured-horizontal">
           <div class="featured-content">
             <div class="checkbox">
-              <h3>Renseignez vos genres favoris</h3>
+              <h2>Renseignez vos genres favoris</h2>
               <div class="genres">
                 <div
                   class="genre"
                   v-for="item in $store.state.genre"
                   :key="item.id"
                 >
-                  <input
+                  <input class="check-input"
                     type="checkbox"
                     v-bind:id="item.id"
                     v-bind:value="item.id"
                     v-model="selected"
+                    
                   />
-                  <label v-bind:for="item.id">{{ item.name }}</label>
+                  <label class="noselect" v-bind:for="item.id">{{ item.name }}</label>
                 </div>
               </div>
 
@@ -97,16 +98,31 @@ export default {
 
 .checkbox {
   padding-top: 100px;
-  width: 25%;
-  margin: auto;
+  width: 45%;
+  margin-left: 5%;
   color: white;
 }
 
-.checkbox h3 {
-  //float: left;
-  //font-size: 40px;
+.checkbox h2 {
   border-bottom: 6px solid #d42525;
   margin-bottom: 50px;
   padding: 13px 0px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;  
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none;  
+        -ms-user-select: none;  
+            user-select: none; 
+}
+
+.check-input:checked + label {
+  color: rgb(190, 23, 23);
+}
+
+.check-input{
+  display:none;
 }
 </style>
