@@ -63,6 +63,7 @@ export default {
 
 .copyright{
     margin-top: 20px;
+    margin-left: 3%;
 }
 .container-item{
     display:flex;
