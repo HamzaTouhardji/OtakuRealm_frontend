@@ -59,7 +59,7 @@ export default {
 }
 
 .genre {
-  margin-right: 20px;
+  margin: 0.5rem 0.2rem;
 }
 
 .featured {
@@ -119,7 +119,17 @@ export default {
 }
 
 .check-input:checked + label {
-  color: rgb(190, 23, 23);
+  background-color: #d42525;
+  border-color: #E02040;
+}
+
+.check-input + label {
+  
+  color: white;
+  border: 0.1rem solid white;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
 }
 
 .check-input{
