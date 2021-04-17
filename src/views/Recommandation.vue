@@ -26,6 +26,7 @@
               </div>
 
               <span>selected : {{ selected }} </span>
+              <input class="btn" type="button" name="" value="Genres" @click="genres" />
             </div>
             <div class="checkbox">
               <h2>Renseignez vos animes</h2>
@@ -85,13 +86,90 @@ export default {
       selected: [],
       selectedAnime: [],
       animes: [],
+      userGenre:[],
     };
   },
-  methods: {},
+  methods: {
+    getCookie: function(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+    async getGenreUser(){
+   
+      let headers = {"Content-Type": "application/json"};
+      console.log(this.getCookie('token'));
+      headers["Authorization"] = `Token ` + this.getCookie('token');
+      var response = await fetch('http://otakurealm.mooo.com/api/genre/utilisateur',{headers})
+      this.userGenre = await response.json();
+      console.log(this.userGenre);
+      let Igenre = [[]];
+      for (Igenre of this.userGenre){
+        console.log(Igenre.id_genre.id);
+        this.selected.push(Igenre.id_genre.id);
+      } 
+    },
+
+    genres: function () {
+      let genreTest =[];
+      for (let idgenre of this.selected){
+        let test = {"id":idgenre};
+        console.log("test");
+        console.log(test);
+        genreTest.push(test);
+      }
+        console.log(
+        JSON.stringify({
+          genres: genreTest,
+        })
+      );
+      let headers = {"Content-Type": "application/json"};
+      console.log(this.getCookie('token'));
+      headers["Authorization"] = `Token ` + this.getCookie('token');
+
+      fetch("http://otakurealm.mooo.com/api/genre/utilisateur", {
+          method: "put",
+          
+          headers: {
+            "Authorization-Type": `Token ` + this.getCookie('token'),
+          },
+
+          body: JSON.stringify({
+            genres: this.selected,
+          }),
+        })
+        .then(
+            function (response) {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                console.log("erreur requete");
+                return null;
+              }
+            },
+            function (err) {
+              console.log("err", err);
+            }
+          )
+    }
+  },
 
   mounted() {
     this.$store.dispatch("getGenre");
     this.$store.dispatch("getAnimes");
+  },
+  async created() {
+    await this.getGenreUser();
   },
 };
 </script>
