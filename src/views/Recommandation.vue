@@ -137,11 +137,13 @@ export default {
       console.log(this.getCookie('token'));
       headers["Authorization"] = `Token ` + this.getCookie('token');
 
-      fetch("http://otakurealm.mooo.com/api/genre/utilisateur",{headers}, {
-          method: "put",
+      fetch("http://otakurealm.mooo.com/api/genre/utilisateur", {
+          method: 'PUT',
+
+          headers,
 
           body: JSON.stringify({
-            genres: this.selected,
+            genres: genreTest,
           }),
         })
         .then(
