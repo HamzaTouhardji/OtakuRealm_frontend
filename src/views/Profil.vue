@@ -24,8 +24,8 @@
     <div class="featured-content">
       <div class="featured-content-title">Watchlist</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="slide in images" :key="slide">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
+      <Slide v-for="slide in $store.state.animes" :key="slide">
         <div class="carousel__item">
           <img
             v-bind:src="slide.src"

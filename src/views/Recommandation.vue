@@ -26,7 +26,13 @@
               </div>
 
               <span>selected : {{ selected }} </span>
-              <input class="btn" type="button" name="" value="Genres" @click="genres" />
+              <input
+                class="btn"
+                type="button"
+                name=""
+                value="Genres"
+                @click="genres"
+              />
             </div>
             <div class="checkbox">
               <h2>Renseignez vos animes</h2>
@@ -70,6 +76,13 @@
                 </tbody>
               </table>
               <span>selected : {{ selectedAnime }} </span>
+              <input
+                class="btn"
+                type="button"
+                name=""
+                value="Genres"
+                @click="animes"
+              />
             </div>
           </div>
         </div>
@@ -85,18 +98,18 @@ export default {
     return {
       selected: [],
       selectedAnime: [],
-      animes: [],
-      userGenre:[],
+      userGenre: [],
+      userAnime: [],
     };
   },
   methods: {
-    getCookie: function(cname) {
+    getCookie: function (cname) {
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for(var i = 0; i <ca.length; i++) {
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) == " ") {
           c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
@@ -105,63 +118,105 @@ export default {
       }
       return "";
     },
-    async getGenreUser(){
-   
-      let headers = {"Content-Type": "application/json"};
-      console.log(this.getCookie('token'));
-      headers["Authorization"] = `Token ` + this.getCookie('token');
-      var response = await fetch('http://otakurealm.mooo.com/api/genre/utilisateur',{headers})
+    async getGenreUser() {
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/genre/utilisateur",
+        { headers }
+      );
       this.userGenre = await response.json();
-      console.log(this.userGenre);
       let Igenre = [[]];
-      for (Igenre of this.userGenre){
-        console.log(Igenre.id_genre.id);
+      for (Igenre of this.userGenre) {
         this.selected.push(Igenre.id_genre.id);
-      } 
+      }
+    },
+
+    async getAnimeUser() {
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/anime/utilisateur",
+        { headers }
+      );
+      this.userAnime = await response.json();
+      console.log(this.userAnime);
+      let Ianime = [[]];
+      for (Ianime of this.userAnime) {
+        console.log(Ianime);
+        this.selectedAnime.push(Ianime.id_anime.id);
+      }
     },
 
     genres: function () {
-      let genreTest =[];
-      for (let idgenre of this.selected){
-        let test = {"id":idgenre};
-        console.log("test");
-        console.log(test);
+      let genreTest = [];
+      for (let idgenre of this.selected) {
+        let test = { id: idgenre };
         genreTest.push(test);
       }
-        console.log(
-        JSON.stringify({
-          genres: genreTest,
-        })
-      );
-      let headers = {"Content-Type": "application/json"};
-      console.log(this.getCookie('token'));
-      headers["Authorization"] = `Token ` + this.getCookie('token');
+
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
 
       fetch("http://otakurealm.mooo.com/api/genre/utilisateur", {
-          method: 'PUT',
+        method: "PUT",
 
-          headers,
+        headers,
 
-          body: JSON.stringify({
-            genres: genreTest,
-          }),
-        })
-        .then(
-            function (response) {
-              if (response.status === 200) {
-                console.log(response);
-                return response.json();
-              } else {
-                console.log("erreur requete");
-                console.log(response);
-                return null;
-              }
-            },
-            function (err) {
-              console.log("err", err);
-            }
-          )
-    }
+        body: JSON.stringify({
+          genres: genreTest,
+        }),
+      }).then(
+        function (response) {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log("erreur requete");
+            return null;
+          }
+        },
+        function (err) {
+          console.log("err", err);
+        }
+      );
+    },
+
+    animes: function () {
+      let animeTest = [];
+      for (let idanime of this.selectedAnime) {
+        let test = { id: idanime };
+        animeTest.push(test);
+      }
+
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+
+      fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
+        method: "PUT",
+
+        headers,
+
+        body: JSON.stringify({
+          animes: animeTest,
+        }),
+      }).then(
+        function (response) {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log("erreur requete");
+            return null;
+          }
+        },
+        function (err) {
+          console.log("err", err);
+        }
+      );
+    },
   },
 
   mounted() {
@@ -170,6 +225,7 @@ export default {
   },
   async created() {
     await this.getGenreUser();
+    await this.getAnimeUser();
   },
 };
 </script>
