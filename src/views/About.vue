@@ -16,7 +16,12 @@
         <button>Valider</button>
       </div>
     </form><hr>
-
+    <div class="search-box">
+      <input class="search-txt" id="search" type="text" name="" placeholder="type to search" value="" @keyup="getValue()">
+      <button class="search-btn">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
     <table class="table">
       <thead>
         <th>title</th>
@@ -30,7 +35,7 @@
         <th>URL</th>
       </thead>
       <tbody>
-        <tr v-for="anime in animes" :key="anime.id" @dblclick="$data.anime = anime">
+        <tr v-for="anime in $store.state.animeSearch" :key="anime.id" @dblclick="$data.anime = anime">
           <td> {{ anime.title }} </td>
           <td> {{ anime.season }} </td>
           <td> {{ anime.score }} </td>
@@ -48,6 +53,7 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 </template>
 
@@ -61,73 +67,77 @@ export default {
     return {
       anime: {},
       animes: [],
-      lesAnimes: null
+      lesAnimes: null,
+      
     }
   },
-  async created() {
-    //Simple GET request using axios
-    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
-    await this.getAnimes();
-  },
+  
   methods: {
-    submitForm(){
-      if (this.anime.id === undefined) {
-        this.createAnime();
-      } else {
-        this.editAnime();
+      async getValue(){
+      let value=document.getElementById('search').value;
+      console.log(value);
+      if(value.length>4)
+      {
+        console.log("appel");
+        await this.$store.dispatch('getAnimeSearch',value);
+        console.log("getAnimeSearch fini");
+        
+       /*
+       var response = await  fetch("http://otakurealm.mooo.com/api/recherche/?search="+value)
+       response.json().then((values) => {
+         console.log(values)
+         this.animes=values; 
+       })*/
       }
-    },
-
-    async getAnimes(){
-      var response = await fetch('http://otakurealm.mooo.com/api/anime');
-      this.animes = await response.json();
-    },
-    async createAnime(){
-      await this.getAnimes();
-      await fetch('http://0.0.0.0:8000/api/recommandation', {
-        method: 'post',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(this.anime)
-      });
-      await this.getAnimes();
-    },
-    async editAnime(){
-      await this.getAnimes();
-      await fetch(`http://0.0.0.0:8000/api/recommandation/${this.anime.id}`, {
-        method: 'put',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(this.anime)
-      });
-      await this.getAnimes();
-      this.anime = {};
-    },
-    async deleteAnime(anime){
-      await this.getAnimes();
-      await fetch(`http://0.0.0.0:8000/api/recommandation/${anime.id}`, {
-        method: 'delete',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(this.anime)
-      });
-      await this.getAnimes();
     }
   }
 }
 </script>
 
 <style scoped>
+@import "https://use.fontawesome.com/releases/v5.15.3/css/all.css";
   .about{
     color: white;
     margin: 2%;
   }
-  input {
-    margin: 1%;
+
+  .search-btn{
+    color: white;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgb(78, 74, 74);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
+
+  .search-txt{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 200px;
+
+  }
+
+  .search-box{
+    
+    width: 300px;
+    background: rgb(78, 74, 74);
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+  }
+
+
   th, td {
     border: 1px solid white;
     width: 200px;
