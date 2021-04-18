@@ -137,12 +137,8 @@ export default {
       console.log(this.getCookie('token'));
       headers["Authorization"] = `Token ` + this.getCookie('token');
 
-      fetch("http://otakurealm.mooo.com/api/genre/utilisateur", {
+      fetch("http://otakurealm.mooo.com/api/genre/utilisateur",{headers}, {
           method: "put",
-          
-          headers: {
-            "Authorization-Type": `Token ` + this.getCookie('token'),
-          },
 
           body: JSON.stringify({
             genres: this.selected,
@@ -151,9 +147,11 @@ export default {
         .then(
             function (response) {
               if (response.status === 200) {
+                console.log(response);
                 return response.json();
               } else {
                 console.log("erreur requete");
+                console.log(response);
                 return null;
               }
             },
@@ -185,7 +183,6 @@ export default {
 }
 
 .featured {
-  height: calc(100vh);
   background-size: cover;
   background-position: center;
   background-image: url(https://images3.alphacoders.com/144/thumb-1920-144565.jpg);
