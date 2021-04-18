@@ -118,7 +118,6 @@ export default {
         console.log(Igenre.id_genre.id);
         this.selected.push(Igenre.id_genre.id);
       }
-      console.log("terminé"); 
     },
 
     genres: function () {
