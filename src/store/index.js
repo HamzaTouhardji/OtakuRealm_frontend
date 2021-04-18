@@ -11,7 +11,8 @@ export default createStore({
     animes:[],
     animesAllTime:[],
     animesSeason:[],
-    animeYear:[]
+    animeYear:[],
+    animeSearch:[]
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -48,7 +49,20 @@ export default createStore({
       });
     },
 
+    SETANIMESEARCH(state,response){
+      response.json().then((values)=> {
+        state.animeSearch=values;
+      });
+    },
+
   },
+
+  getters:{
+    GETANIMESEARCH(state){
+      return state.animeSearch
+    }
+  },
+
   actions: {
     getToken(context, credentials) {
       console.log(JSON.stringify({
@@ -130,6 +144,10 @@ export default createStore({
       var response = await fetch('http://otakurealm.mooo.com/api/anime_annee');
       context.commit("SETANIMEYEAR",response);
     },
+    async getAnimeSearch(context,credentials){
+      var response = await fetch("http://otakurealm.mooo.com/api/recherche/?search="+credentials)
+      context.commit('SETANIMESEARCH',response);
+    }
   },
  
   modules: {
