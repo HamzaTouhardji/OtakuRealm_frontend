@@ -78,13 +78,6 @@ export default {
 
   methods: {
     register: function () {
-      console.log(
-        JSON.stringify({
-          username: this.form.username,
-          password: this.form.password,
-          email: this.form.email,
-        })
-      );
 
       if (
         (this.form.mail == this.form.mail2) &&

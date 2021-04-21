@@ -75,17 +75,13 @@ export default {
   methods: {
       async getValue(){
       let value=document.getElementById('search').value;
-      console.log(value);
       if(value.length>4)
       {
-        console.log("appel");
         await this.$store.dispatch('getAnimeSearch',value);
-        console.log("getAnimeSearch fini");
         
        /*
        var response = await  fetch("http://otakurealm.mooo.com/api/recherche/?search="+value)
        response.json().then((values) => {
-         console.log(values)
          this.animes=values; 
        })*/
       }

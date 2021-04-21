@@ -150,7 +150,6 @@ export default {
     },
     async getGenreUser() {
       let headers = { "Content-Type": "application/json" };
-      console.log(this.getCookie("token"));
       headers["Authorization"] = `Token ` + this.getCookie("token");
       var response = await fetch(
         "http://otakurealm.mooo.com/api/genre/utilisateur",
@@ -165,45 +164,34 @@ export default {
 
     async getAnimeUser() {
       let headers = { "Content-Type": "application/json" };
-      console.log(this.getCookie("token"));
       headers["Authorization"] = `Token ` + this.getCookie("token");
       var response = await fetch(
         "http://otakurealm.mooo.com/api/anime/utilisateur",
         { headers }
       );
       this.userAnime = await response.json();
-      console.log(this.userAnime);
       let Ianime = [[]];
       for (Ianime of this.userAnime) {
-        console.log(Ianime);
         this.selectedAnime.push(Ianime.id_anime.id);
         let animeObject = { id : Ianime.id_anime.id, score :Ianime.score};
-        console.log(animeObject);
         this.selectedAnimeScore.push(animeObject);
       }
     },
 
     async getValue(){
       let value=document.getElementById('search').value;
-      console.log(value);
       if(value.length>4)
       {
-        console.log("appel");
         await this.$store.dispatch('getAnimeSearch',value);
-        console.log("getAnimeSearch fini");
 
       }
     },
 
     score:function(value){
       if(this.selectedAnimeScore.find(object => object.id === value))
-        { console.log("trouve")       
           return(this.selectedAnimeScore.find(object => object.id === value).score)
-        }      
       else
-        { console.log("pas trouve")       
-          return -1
-        }    },
+          return -1   },
 
     genres: function () {
       let genreTest = [];
@@ -213,7 +201,6 @@ export default {
       }
 
       let headers = { "Content-Type": "application/json" };
-      console.log(this.getCookie("token"));
       headers["Authorization"] = `Token ` + this.getCookie("token");
 
       fetch("http://otakurealm.mooo.com/api/genre/utilisateur", {
@@ -240,7 +227,6 @@ export default {
     },
 
     animes: function (value) {
-      console.log(value);
       let method;
       if(this.selectedAnime.includes(value)){
         method= "DELETE";
@@ -250,7 +236,6 @@ export default {
       }
 
       let headers = { "Content-Type": "application/json" };
-      console.log(this.getCookie("token"));
       headers["Authorization"] = `Token ` + this.getCookie("token");
 
       fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
@@ -279,12 +264,9 @@ export default {
     },
 
     changeNote: function (value) {
-      console.log(value);
       var note = document.getElementById(value).value;
-      console.log(note);
 
       let headers = { "Content-Type": "application/json" };
-      console.log(this.getCookie("token"));
       headers["Authorization"] = `Token ` + this.getCookie("token");
 
       fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
