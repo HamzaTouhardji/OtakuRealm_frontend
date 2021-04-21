@@ -82,27 +82,28 @@
                     </td>
                     <td>
                       <select v-bind:id="anime.id-1000" v-if="selectedAnime.includes(anime.id)" @change="changeNote(anime.id-1000)">
-                        <option selected value = 0 v-if="0 == (selectedAnimeScore.find(object => object.id === anime.id).score)">0</option>
+                        <option value = -1>---</option>
+                        <option selected value = 0 v-if="0 == score(anime.id)">0</option>
                         <option value = 0 v-else>0</option>
-                        <option selected value = 1 v-if="1 == (selectedAnimeScore.find(object => object.id === anime.id).score)">1</option>
+                        <option selected value = 1 v-if="1 == score(anime.id)">1</option>
                         <option value = 1 v-else>1</option>
-                        <option selected value = 2 v-if="2 == (selectedAnimeScore.find(object => object.id === anime.id).score)">2</option>
+                        <option selected value = 2 v-if="2 == score(anime.id)">2</option>
                         <option value = 2 v-else>2</option>
-                        <option selected value = 3 v-if="3 == (selectedAnimeScore.find(object => object.id === anime.id).score)">3</option>
+                        <option selected value = 3 v-if="3 == score(anime.id)">3</option>
                         <option value = 3 v-else>3</option>
-                        <option selected value = 4 v-if="4 == (selectedAnimeScore.find(object => object.id === anime.id).score)">4</option>
+                        <option selected value = 4 v-if="4 == score(anime.id)">4</option>
                         <option value = 4 v-else>4</option>
-                        <option selected value = 5 v-if="5 == (selectedAnimeScore.find(object => object.id === anime.id).score)">5</option>
+                        <option selected value = 5 v-if="5 == score(anime.id)">5</option>
                         <option value = 5 v-else>5</option>
-                        <option selected value = 6 v-if="6 == (selectedAnimeScore.find(object => object.id === anime.id).score)">6</option>
+                        <option selected value = 6 v-if="6 == score(anime.id)">6</option>
                         <option value = 6 v-else>6</option>
-                        <option selected value = 7 v-if="7 == (selectedAnimeScore.find(object => object.id === anime.id).score)">7</option>
+                        <option selected value = 7 v-if="7 == score(anime.id)">7</option>
                         <option value = 7 v-else>7</option>
-                        <option selected value = 8 v-if="8 == (selectedAnimeScore.find(object => object.id === anime.id).score)">8</option>
+                        <option selected value = 8 v-if="8 == score(anime.id)">8</option>
                         <option value = 8 v-else>8</option>
-                        <option selected value = 9 v-if="9 == (selectedAnimeScore.find(object => object.id === anime.id).score)">9</option>
+                        <option selected value = 9 v-if="9 == score(anime.id)">9</option>
                         <option value = 9 v-else>9</option>
-                        <option selected value = 10 v-if="10 == (selectedAnimeScore.find(object => object.id === anime.id).score)">10</option>
+                        <option selected value = 10 v-if="10 == score(anime.id)">10</option>
                         <option value = 10 v-else>10</option>
                         
                       </select>
@@ -194,6 +195,16 @@ export default {
       }
     },
 
+    score:function(value){
+      if(this.selectedAnimeScore.find(object => object.id === value))
+        { console.log("trouve")       
+          return(this.selectedAnimeScore.find(object => object.id === value).score)
+        }      
+      else
+        { console.log("pas trouve")       
+          return -1
+        }    },
+
     genres: function () {
       let genreTest = [];
       for (let idgenre of this.selected) {
@@ -249,7 +260,7 @@ export default {
 
         body: JSON.stringify({
           id_anime: value, 
-          score: 0, 
+          score: -1, 
           description: "------"
         }),
       }).then(
