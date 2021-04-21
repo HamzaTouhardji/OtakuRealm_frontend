@@ -36,20 +36,28 @@
             </div>
             <div class="checkbox">
               <h2>Renseignez vos animes</h2>
+              <div class="search-box">
+                <input class="search-txt" id="search" type="text" name="" placeholder="type to search" value="" @keyup="getValue()">
+                <button class="search-btn">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
               <table class="table">
                 <thead>
                   <th>title</th>
                   <th>season</th>
                   <th>number_of_episodes</th>
                   <th>episode_duration</th>
+                  <th>note</th>
                 </thead>
-                <tbody v-for="anime in $store.state.animes" :key="anime.id">
+                <tbody v-for="anime in $store.state.animeSearch" :key="anime.id">
                   <input
                     class="check-input"
                     type="checkbox"
                     v-bind:id="1000 + anime.id"
                     v-bind:value="anime.id"
                     v-model="selectedAnime"
+                    @click="animes(anime.id)"
                   />
                   <tr>
                     <td>
@@ -72,17 +80,37 @@
                         anime.episode_duration
                       }}</label>
                     </td>
+                    <td>
+                      <select v-bind:id="anime.id-1000" v-if="selectedAnime.includes(anime.id)" @change="changeNote(anime.id-1000)">
+                        <option selected value = 0 v-if="0 == (selectedAnimeScore.find(object => object.id === anime.id).score)">0</option>
+                        <option value = 0 v-else>0</option>
+                        <option selected value = 1 v-if="1 == (selectedAnimeScore.find(object => object.id === anime.id).score)">1</option>
+                        <option value = 1 v-else>1</option>
+                        <option selected value = 2 v-if="2 == (selectedAnimeScore.find(object => object.id === anime.id).score)">2</option>
+                        <option value = 2 v-else>2</option>
+                        <option selected value = 3 v-if="3 == (selectedAnimeScore.find(object => object.id === anime.id).score)">3</option>
+                        <option value = 3 v-else>3</option>
+                        <option selected value = 4 v-if="4 == (selectedAnimeScore.find(object => object.id === anime.id).score)">4</option>
+                        <option value = 4 v-else>4</option>
+                        <option selected value = 5 v-if="5 == (selectedAnimeScore.find(object => object.id === anime.id).score)">5</option>
+                        <option value = 5 v-else>5</option>
+                        <option selected value = 6 v-if="6 == (selectedAnimeScore.find(object => object.id === anime.id).score)">6</option>
+                        <option value = 6 v-else>6</option>
+                        <option selected value = 7 v-if="7 == (selectedAnimeScore.find(object => object.id === anime.id).score)">7</option>
+                        <option value = 7 v-else>7</option>
+                        <option selected value = 8 v-if="8 == (selectedAnimeScore.find(object => object.id === anime.id).score)">8</option>
+                        <option value = 8 v-else>8</option>
+                        <option selected value = 9 v-if="9 == (selectedAnimeScore.find(object => object.id === anime.id).score)">9</option>
+                        <option value = 9 v-else>9</option>
+                        <option selected value = 10 v-if="10 == (selectedAnimeScore.find(object => object.id === anime.id).score)">10</option>
+                        <option value = 10 v-else>10</option>
+                        
+                      </select>
+                    </td>
                   </tr>
                 </tbody>
               </table>
               <span>selected : {{ selectedAnime }} </span>
-              <input
-                class="btn"
-                type="button"
-                name=""
-                value="Genres"
-                @click="animes"
-              />
             </div>
           </div>
         </div>
@@ -98,6 +126,7 @@ export default {
     return {
       selected: [],
       selectedAnime: [],
+      selectedAnimeScore: [{}],
       userGenre: [],
       userAnime: [],
     };
@@ -147,6 +176,21 @@ export default {
       for (Ianime of this.userAnime) {
         console.log(Ianime);
         this.selectedAnime.push(Ianime.id_anime.id);
+        let animeObject = { id : Ianime.id_anime.id, score :Ianime.score};
+        console.log(animeObject);
+        this.selectedAnimeScore.push(animeObject);
+      }
+    },
+
+    async getValue(){
+      let value=document.getElementById('search').value;
+      console.log(value);
+      if(value.length>4)
+      {
+        console.log("appel");
+        await this.$store.dispatch('getAnimeSearch',value);
+        console.log("getAnimeSearch fini");
+
       }
     },
 
@@ -184,11 +228,14 @@ export default {
       );
     },
 
-    animes: function () {
-      let animeTest = [];
-      for (let idanime of this.selectedAnime) {
-        let test = { id: idanime };
-        animeTest.push(test);
+    animes: function (value) {
+      console.log(value);
+      let method;
+      if(this.selectedAnime.includes(value)){
+        method= "DELETE";
+      }
+      else{
+        method= "POST"
       }
 
       let headers = { "Content-Type": "application/json" };
@@ -196,12 +243,47 @@ export default {
       headers["Authorization"] = `Token ` + this.getCookie("token");
 
       fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
-        method: "PUT",
+        method,
 
         headers,
 
         body: JSON.stringify({
-          animes: animeTest,
+          id_anime: value, 
+          score: 0, 
+          description: "------"
+        }),
+      }).then(
+        function (response) {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log("erreur requete");
+            return null;
+          }
+        },
+        function (err) {
+          console.log("err", err);
+        }
+      );
+    },
+
+    changeNote: function (value) {
+      console.log(value);
+      var note = document.getElementById(value).value;
+      console.log(note);
+
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+
+      fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
+        method: "put",
+
+        headers,
+
+        body: JSON.stringify({
+          id_anime: value+1000, 
+          score: note, 
         }),
       }).then(
         function (response) {

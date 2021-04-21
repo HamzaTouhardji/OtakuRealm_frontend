@@ -14,6 +14,18 @@
                   <p>Sex: {{userInfo[0].sexe}}</p>
                   <p>Age: {{userInfo[0].age}}</p>
                 </span>
+                <div class="genres">
+                <div
+                  class="genre"
+                  v-for="item in selected"
+                  :key="item.id"
+                >
+                  <label class="noselect" v-bind:for="item.id_genre.id">{{
+                    item.id_genre.name
+                  }}</label>
+                </div>
+              </div>
+              <router-link to="/recommandation" class="menu-link">Modifier</router-link>
               </div>
             </div>
           </div>
@@ -24,15 +36,17 @@
     <div class="featured-content">
       <div class="featured-content-title">Watchlist</div>
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints" :key="$store.state.animes">
-      <Slide v-for="slide in $store.state.animes" :key="slide">
+    <Carousel :settings="settings" :breakpoints="breakpoints" :key="selectedAnime">
+      <Slide v-for="anime in selectedAnime" :key="anime">
         <div class="carousel__item">
-          <img
-            v-bind:src="slide.src"
-            v-bind:alt="slide.alt"
-            class="card-image"
-            draggable="false"
-          />
+          <a v-bind:href="'#/detailanime?id=' + anime.id_anime.id" draggable="false">
+            <img
+              v-bind:src="anime.id_anime.URL"
+              v-bind:alt="anime.id_anime.title"
+              class="card-image"
+              draggable="false"
+            />
+          </a>
         </div>
       </Slide>
 
@@ -59,6 +73,8 @@ export default defineComponent({
   },
   data: () => ({
     userInfo:[{}],
+    selected: [],
+    selectedAnime: [],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -83,67 +99,13 @@ export default defineComponent({
         snapAlign: "start",
       },
     },
-    images: [
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1000/110531.jpg?s=3df5ebb6800604dc04c6a6187dd7161b",
-        alt: "Shingeki no Kyojin: The Final Season",
-      },
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1132/110666.jpg?s=a5a23105e2245e9f5ea0499be2fce9a8",
-        alt: "Re:Zero kara Hajimeru Isekai Seikatsu 2nd Season Part 2",
-      },
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1255/110636.jpg?s=2b6005aafc62e746b64d224e60a5a8b4",
-        alt: "Yuru Camp△ Season 2",
-      },
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1171/109222.jpg?s=f5508bab9e7d610a28f12d1828a6ee79",
-        alt: "Jujutsu Kaisen (TV)",
-      },
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1791/110336.jpg?s=6afe0e38492f034cbd6f1b13d782e52f",
-        alt: "Horimiya",
-      },
-      {
-        src:
-          "https://cdn.myanimelist.net/images/anime/1259/110227.jpg?s=08c77f58ab974a8fc36af5e2eac9040a",
-        alt: "Holo no Graffiti",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-      {
-        src: "",
-        alt: "",
-      },
-    ],
   }),
   async created() {
     //Simple GET request using axios
     //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
     await this.getInfoUser();
+    await this.getAnimeUser();
+    await this.getGenreUser();
   },
   methods: {
     getCookie: function(cname) {
@@ -168,7 +130,30 @@ export default defineComponent({
       headers["Authorization"] = `Token ` + this.getCookie('token');
       var response = await fetch('http://otakurealm.mooo.com/api/info_utilisateur/',{headers})
       this.userInfo = await response.json();
-      console.log(this.userInfo)
+      //console.log(this.userInfo)
+    },
+    async getAnimeUser() {
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/anime/utilisateur",
+        { headers }
+      );
+      this.selectedAnime = await response.json();
+      //console.log(this.selectedAnime)
+      
+    },
+    async getGenreUser() {
+      let headers = { "Content-Type": "application/json" };
+      console.log(this.getCookie("token"));
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/genre/utilisateur",
+        { headers }
+      );
+      this.selected = await response.json();
+      console.log(this.selected);
     },
   }
 });
@@ -284,7 +269,42 @@ export default defineComponent({
 .carousel__next {
   background: none;
 }
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+}
+.genre {
+  margin: 0.5rem 0.2rem;
+}
 
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+label {
+  color: white;
+  border: 0.1rem solid white;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  margin: 1%;
+}
+
+.menu-link {
+  margin-left: 16px;
+  text-decoration: none;
+  color: #9e9e9e;
+  transition: 300ms ease-in-out;
+}
+
+.menu-link:hover {
+  color: #fd9330;
+}
 @media (max-width: 767px) {
   .featured {
     height: calc(100vh - 60px);
