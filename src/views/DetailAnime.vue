@@ -19,6 +19,48 @@
                   <p>Number of season : {{anime.season}}</p>
                   <p>Rating : {{anime.rating}}/10</p>
                 </span>
+                
+                </div>
+                <div
+                  class="genre"
+                  
+                >
+                <input
+                    class="check-input"
+                    type="checkbox"
+                    v-bind:id="anime.id"
+                    v-bind:value="anime.id"
+                    v-model="selectedAnime"
+                    @click="animes(anime.id)"
+                  />
+                <label class="noselect ajoutAnime" v-bind:for="anime.id">
+                    Ajout à la watchlist
+                  </label>
+                  <select class="noselect ajoutAnime" v-bind:id="anime.id-1000" v-if="selectedAnime.includes(anime.id)" @change="changeNote(anime.id-1000)">
+                    <option value = -1>---</option>
+                        <option selected value = 0 v-if="0 == score(anime.id)">0</option>
+                        <option value = 0 v-else>0</option>
+                        <option selected value = 1 v-if="1 == score(anime.id)">1</option>
+                        <option value = 1 v-else>1</option>
+                        <option selected value = 2 v-if="2 == score(anime.id)">2</option>
+                        <option value = 2 v-else>2</option>
+                        <option selected value = 3 v-if="3 == score(anime.id)">3</option>
+                        <option value = 3 v-else>3</option>
+                        <option selected value = 4 v-if="4 == score(anime.id)">4</option>
+                        <option value = 4 v-else>4</option>
+                        <option selected value = 5 v-if="5 == score(anime.id)">5</option>
+                        <option value = 5 v-else>5</option>
+                        <option selected value = 6 v-if="6 == score(anime.id)">6</option>
+                        <option value = 6 v-else>6</option>
+                        <option selected value = 7 v-if="7 == score(anime.id)">7</option>
+                        <option value = 7 v-else>7</option>
+                        <option selected value = 8 v-if="8 == score(anime.id)">8</option>
+                        <option value = 8 v-else>8</option>
+                        <option selected value = 9 v-if="9 == score(anime.id)">9</option>
+                        <option value = 9 v-else>9</option>
+                        <option selected value = 10 v-if="10 == score(anime.id)">10</option>
+                        <option value = 10 v-else>10</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -42,6 +84,8 @@ export default ({
   name: "Home",
   data: () => ({
     anime: {},
+    selectedAnime: [],
+    selectedAnimeScore: [{}],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -71,13 +115,114 @@ export default ({
     //Simple GET request using axios
     //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
     await this.getAnimes();
+    await this.getAnimeUser();
   },
   methods: {
+    getCookie: function (cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
     async getAnimes(){
       var id = this.$route.query.id
       var response = await fetch('http://otakurealm.mooo.com/api/anime/'+id)
       this.anime = await response.json();
     },
+    async getAnimeUser() {
+      let headers = { "Content-Type": "application/json" };
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/anime/utilisateur",
+        { headers }
+      );
+      this.userAnime = await response.json();
+      let Ianime = [[]];
+      for (Ianime of this.userAnime) {
+        this.selectedAnime.push(Ianime.id_anime.id);
+        let animeObject = { id : Ianime.id_anime.id, score :Ianime.score};
+        this.selectedAnimeScore.push(animeObject);
+      }
+    },
+    animes: function (value) {
+      let method;
+      if(this.selectedAnime.includes(value)){
+        method= "DELETE";
+      }
+      else{
+        method= "POST"
+      }
+
+      let headers = { "Content-Type": "application/json" };
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+
+      fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
+        method,
+
+        headers,
+
+        body: JSON.stringify({
+          id_anime: value, 
+          score: -1, 
+          description: "------"
+        }),
+      }).then(
+        function (response) {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log("erreur requete");
+            return null;
+          }
+        },
+        function (err) {
+          console.log("err", err);
+        }
+      );
+    },
+    changeNote: function (value) {
+      var note = document.getElementById(value).value;
+
+      let headers = { "Content-Type": "application/json" };
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+
+      fetch("http://otakurealm.mooo.com/api/anime/utilisateur", {
+        method: "put",
+
+        headers,
+
+        body: JSON.stringify({
+          id_anime: value+1000, 
+          score: note, 
+        }),
+      }).then(
+        function (response) {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log("erreur requete");
+            return null;
+          }
+        },
+        function (err) {
+          console.log("err", err);
+        }
+      );
+    },
+    score:function(value){
+      if(this.selectedAnimeScore.find(object => object.id === value))
+          return(this.selectedAnimeScore.find(object => object.id === value).score)
+      else
+          return -1   },
   }
 });
 
@@ -212,6 +357,40 @@ export default ({
   background: none;
 }
 
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.genre {
+  margin: 0.5rem 0.2rem;
+}
+
+.check-input {
+  display: none;
+}
+
+.ajoutAnime {
+  color: white;
+  border: 0.1rem solid white;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  margin: 1%;
+  background-color: transparent;
+}
+
+.check-input:checked + label {
+  background-color: #d42525;
+  border-color: #e02040;
+}
+
+option {
+  background-color: #111;
+}
 @media (max-width: 767px) {
   .featured {
     height: calc(100vh - 60px);

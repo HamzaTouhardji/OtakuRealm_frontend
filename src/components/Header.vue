@@ -2,12 +2,12 @@
   <header class="header">
     <div class="menu-conatiner">
       <router-link to="/">
-        <span class="logo">OtakuRealm-Logo</span>
+        <span class="logo">OtakuRealm</span>
       </router-link>
-      <div class="menu">
+      <!--<div class="menu">
         <router-link to="/" class="menu-link">Home</router-link>
         <router-link to="/about" class="menu-link">About</router-link>
-      </div>
+      </div>-->
     </div>
     <div class="search-bar">
       <input
@@ -38,7 +38,6 @@ export default {
     logout: function () {
       this.$store.dispatch('auth_logout').then(() => {
         this.$router.push("/login");
-        console.log('logout');
       });
     },
   },

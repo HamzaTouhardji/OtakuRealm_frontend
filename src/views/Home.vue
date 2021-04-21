@@ -147,7 +147,6 @@ export default defineComponent({
       this.animesHead.push(await response.json());
       response = await fetch("http://otakurealm.mooo.com/api/anime/21");
       this.animesHead.push(await response.json());
-      console.log(this.animesHead);
       this.update2 +=1;
     },
   },
