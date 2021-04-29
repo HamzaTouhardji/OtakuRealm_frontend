@@ -360,10 +360,10 @@ select {
 }
 
 .photo {
+  width: 10vw;
   border-radius: 100%;
 }
 .featured {
-  height: calc(70vh);
   background-size: cover;
   background-position: center;
   background-image: url(https://pbs.twimg.com/media/EqQ82EIXIAAmbmc?format=jpg);
@@ -376,7 +376,7 @@ select {
   flex-direction: column;
   justify-content: center;
   margin-left: 5vw;
-  max-width: 40vw;
+  max-width: 25vw;
   border-radius: 30px;
 }
 
@@ -401,17 +401,23 @@ select {
   margin-bottom: 12px;
   letter-spacing: 1.2px;
   margin: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 }
 
 .featured-content-synopsis {
   overflow: hidden;
   color: #ececec;
-  display: -webkit-box;
+  /* display: -webkit-box; */
   font-size: 16px;
   margin-bottom: 24px;
   -webkit-line-clamp: 12;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 .carousel__item {
@@ -477,8 +483,6 @@ label {
   border: 0.1rem solid white;
   border-radius: 0.5rem;
   padding: 0.3rem 0.5rem;
-  cursor: pointer;
-  margin: 1%;
 }
 
 .menu-link {

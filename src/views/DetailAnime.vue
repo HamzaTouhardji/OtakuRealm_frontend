@@ -17,9 +17,17 @@
                   <p>Number of episodes : {{anime.number_of_episodes}}</p>
                   <p>Episode duration : {{anime.episode_duration}}</p>
                   <p>Number of season : {{anime.season}}</p>
-                  <p>Rating : {{anime.rating}}/10</p>
+                  <p>Studio : {{anime.production_studio}}</p>
+                  <p>Rating : {{anime.score}}/10</p>
                 </span>
                 
+                </div>
+                <div  class="genres">
+                <div class="genre" v-for="item in anime.genres" :key="item.id">
+                  <label class="noselect" v-bind:for="item">{{
+                    item
+                  }}</label>
+                </div>
                 </div>
                 <div
                   class="genre"
@@ -247,7 +255,6 @@ export default ({
   border-radius: 10%;
 }
 .featured {
-  height: calc(70vh);
   background-size: cover;
   background-position: center;
   background-image: url(https://www.lartetcreation.net/Files/125948/Img/01/marbre-gris-argent-fond-noir-zoom.jpg);
@@ -289,6 +296,8 @@ export default ({
   margin-bottom: 12px;
   letter-spacing: 1.2px;
   margin: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 }
 
 .featured-content-synopsis {
@@ -386,6 +395,21 @@ export default ({
 .check-input:checked + label {
   background-color: #d42525;
   border-color: #e02040;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+}
+.genre {
+  margin: 0.5rem 0.2rem;
+}
+
+label {
+  color: white;
+  border: 0.1rem solid white;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.5rem;
 }
 
 option {
