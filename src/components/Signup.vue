@@ -77,13 +77,13 @@ export default {
   },
 
   methods: {
-    register: function () {
+    async register() {
 
       if (
         (this.form.mail == this.form.mail2) &&
         (this.form.password == this.form.password2)
       ) {
-        fetch("http://otakurealm.mooo.com/api/register/", {
+        await fetch("http://otakurealm.mooo.com/api/register/", {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -107,7 +107,11 @@ export default {
               console.log("err", err);
             }
           )
-          .then(this.connect);
+          this.$store.dispatch('getToken',{
+          username: this.form.username,
+          password: this.form.password,
+          router : this.$router,
+        })
       } else {
         console.log("pas les meme mdp ou mail");
       }
