@@ -1,9 +1,11 @@
 <template>
+<form name="form">
   <div class="login-box">
     <h1>Login</h1>
     <div class="text-box">
       <i class="fa fa-user" aria-hidden="true"></i>
       <input
+        id="username"
         type="text"
         placeholder="Username"
         name="username"
@@ -13,14 +15,17 @@
     <div class="text-box">
       <i class="fa fa-lock" aria-hidden="true"></i>
       <input
+        id="password"
         type="password"
         placeholder="Password"
         name="password"
         v-model="form.password"
       />
     </div>
+    <span class="error" id="errorname">{{$store.state.alert}}</span>
     <input class="btn" type="button" name="" value="Log-in" @click="login" />
   </div>
+</form>
 </template>
 
 <script>
@@ -37,12 +42,23 @@ export default {
 
 
   methods: {
-    login: function () {
+    async login() {
+      var username = document.forms["form"]["username"];
+      var password = document.forms["form"]["password"];                  
+      if (username.value == "" || password.value == ""){
+          console.log("remplir champs");
+          this.$store.state.alert="champ(s) non rempli(s)";
+          document.getElementById('username').value = ''
+          document.getElementById('password').value = ''  
+
+        }
+      else{
         this.$store.dispatch('getToken',{
           username: this.form.username,
           password: this.form.password,
           router : this.$router,
         })
+      }
     },
     //animation feedback
   }
@@ -57,8 +73,13 @@ export default {
   color: white;
 }
 
+.error{
+  color: rgb(211, 59, 59);
+  font-weight: bold;
+}
+
 .login-box h1 {
-  //float: left;
+ 
   font-size: 40px;
   border-bottom: 6px solid #c03a6d;
   margin-bottom: 50px;
