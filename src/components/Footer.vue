@@ -5,18 +5,15 @@
         <div class="container-item">
           <div class="about">
             <h6>About</h6>
-            <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+            <p class="text-justify">otakurealm.mooo.com <i>DEVELOPPED BY STUDENTS FOR A SCHOOL PROJECT </i> is a web application, offering personalized anime recommendations for users </p>
           </div>
 
           <div class="categorie">
             <h6>Categories</h6>
             <ul class="footer-links">
-              <li><a href="#">C</a></li>
-              <li><a href="#">UI Design</a></li>
+              <li><a href="http://cazabetremy.fr/wiki/doku.php?id=projet:sujets">LifProjet</a></li>
+              <li><a href="https://myanimelist.net/">MyAnimeList</a></li>
               <li><a href="#">PHP</a></li>
-              <li><a href="#">Java</a></li>
-              <li><a href="#">Android</a></li>
-              <li><a href="#">Roguelike</a></li>
             </ul>
           </div>
 
@@ -25,8 +22,7 @@
             <ul class="footer-links">
               <li><a href="#">About Us</a></li>
               <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Contribute</a></li>
-              <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
@@ -35,7 +31,7 @@
       <div class="container">
         <div class="container-item">
           <div class="copyright">
-            <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by Scanfcode.</p>
+            <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by OtakuRealm.</p>
           </div>
 
           <div class="icons">
