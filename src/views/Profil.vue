@@ -154,6 +154,34 @@
         <Navigation />
       </template>
     </Carousel>
+    <div class="featured-content">
+      <div class="featured-content-title">Recommandation</div>
+    </div>
+    <Carousel
+      :settings="settings"
+      :breakpoints="breakpoints"
+      :key="updateR"
+    >
+      <Slide v-for="anime in recommandation" :key="anime">
+        <div class="carousel__item">
+          <a
+            v-bind:href="'#/detailanime?id=' + anime.id"
+            draggable="false"
+          >
+            <img
+              v-bind:src="anime.URL"
+              v-bind:alt="anime.title"
+              class="card-image"
+              draggable="false"
+            />
+          </a>
+        </div>
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
   </div>
 </template>
 
@@ -176,6 +204,9 @@ export default defineComponent({
     userInfo: [{}],
     selected: [],
     selectedAnime: [],
+    listeRecommadation: [],
+    recommandation: [],
+    updateR: 0,
     user: {},
     // carousel settings
     settings: {
@@ -208,6 +239,7 @@ export default defineComponent({
     await this.getInfoUser();
     await this.getAnimeUser();
     await this.getGenreUser();
+    await this.getRecommandationUser();
   },
   methods: {
     getCookie: function (cname) {
@@ -256,6 +288,26 @@ export default defineComponent({
         { headers }
       );
       this.selected = await response.json();
+    },
+    async getRecommandationUser() {
+      let headers = { "Content-Type": "application/json" };
+
+      headers["Authorization"] = `Token ` + this.getCookie("token");
+      var response = await fetch(
+        "http://otakurealm.mooo.com/api/recommandation/",
+        { headers }
+      );
+      this.listeRecommadation = await response.json();
+      this.getAnimes()
+    },
+    async getAnimes(){
+      console.log(this.listeRecommadation)
+      for (var recomm of this.listeRecommadation){
+      var response = await fetch('http://otakurealm.mooo.com/api/anime/'+recomm.id_anime)
+      this.recommandation.push(await response.json()) ;
+      }
+      console.log(this.recommandation);
+      this.updateR+=1
     },
     editProfil: function () {
       let headers = { "Content-Type": "application/json" };
