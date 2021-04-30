@@ -12,7 +12,8 @@ export default createStore({
     animesAllTime:[],
     animesSeason:[],
     animeYear:[],
-    animeSearch:[]
+    animeSearch:[],
+    alert:""
   },
   mutations: {
     AUTHENTIFICATION(state) {
@@ -29,6 +30,10 @@ export default createStore({
       response.json().then((values) => {
       state.animes=values;
       });
+    },
+
+    SETALERT(state, message){
+      state.alert= message
     },
 
     SETANIMEALLTIME(state,response){
@@ -65,10 +70,7 @@ export default createStore({
 
   actions: {
     getToken(context, credentials) {
-      console.log(JSON.stringify({
-        username: credentials.username,
-        password: credentials.password,
-      }));
+      context.commit('SETALERT','')
       fetch("http://otakurealm.mooo.com/api/login/", {
         method: "post",
         headers: {
@@ -86,6 +88,7 @@ export default createStore({
               return response.json();
             } else {
               console.log("erreur requete");
+             
               return null;
             }
           },
@@ -95,11 +98,13 @@ export default createStore({
         )
         .then(
           function (response) {
-            console.log('connexion...');
             if (response == null) {
+              console.log('mdp ou username incorrect');
+              context.commit('SETALERT','mdp ou username incorrect')
               return null;
             }
             if (response.token != undefined) {
+              console.log('connexion...');
               console.log(response.token); // faire la session et tout
               document.cookie = 'token = ' + response.token;
 
@@ -108,11 +113,10 @@ export default createStore({
               if (context.state.authenticated == true) {
                 router.push("/");
               }
-            } else {
-              console.log("erreur connexion (mauvais mdp ou mail)");
             }
           }
         );
+       
     },
 
     auth_logout(context){
