@@ -105,7 +105,7 @@ export default {
         email.value == "" ||
         email2.value == ""
       ) {
-        console.log("remplir champs");
+        
         this.$store.state.alert = "champ(s) non rempli(s)";
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
@@ -133,7 +133,7 @@ export default {
               if (response.status === 200) {
                 return response.json();
               } else {
-                console.log("erreur requete");
+                
                 return null;
               }
             },
@@ -148,11 +148,8 @@ export default {
           });
           this.$store.dispatch("load");
         } else {
-          this.$store.state.alert =
-            "La confirmation du mot de pass ou du mail est incorrect";
-          console.log(
-            "La confirmation du mot de pass ou du mail est incorrect"
-          );
+          this.$store.state.alert ="La confirmation du mot de pass ou du mail est incorrect";
+
         }
       }
     },

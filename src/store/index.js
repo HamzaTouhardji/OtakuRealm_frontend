@@ -106,7 +106,6 @@ export default createStore({
         .then(
           function (response) {
             if (response == null) {
-              console.log('mdp ou username incorrect');
               context.commit('SETLOAD');
               context.commit('SETALERT', 'mdp ou username incorrect')
               return null;

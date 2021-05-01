@@ -59,7 +59,6 @@ export default {
       var username = document.forms["form"]["username"];
       var password = document.forms["form"]["password"];
       if (username.value == "" || password.value == "") {
-        console.log("remplir champs");
         this.$store.state.alert = "champ(s) non rempli(s)";
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
