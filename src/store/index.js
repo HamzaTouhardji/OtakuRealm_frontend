@@ -77,6 +77,7 @@ export default createStore({
     async getToken(context, credentials) {
       context.commit('SETLOAD');
       context.commit('SETALERT', '')
+
       fetch("http://otakurealm.mooo.com/api/login/", {
         method: "post",
         headers: {
