@@ -8,69 +8,75 @@ export default createStore({
   state: {
     authenticated: false,
     genre: [],
-    animes:[],
-    animesAllTime:[],
-    animesSeason:[],
-    animeYear:[],
-    animeSearch:[],
-    alert:""
+    animes: [],
+    animesAllTime: [],
+    animesSeason: [],
+    animeYear: [],
+    animeSearch: [],
+    alert: "",
+    loading: false
   },
   mutations: {
     AUTHENTIFICATION(state) {
-      state.authenticated =!state.authenticated;
+      state.authenticated = !state.authenticated;
     },
 
-    SETGENRE(state,response){
+    SETGENRE(state, response) {
       response.json().then((values) => {
-      state.genre=values;
+        state.genre = values;
       });
     },
 
-    SETANIME(state,response){
+    SETANIME(state, response) {
       response.json().then((values) => {
-      state.animes=values;
+        state.animes = values;
       });
     },
 
-    SETALERT(state, message){
-      state.alert= message
+    SETALERT(state, message) {
+      state.alert = message
     },
 
-    SETANIMEALLTIME(state,response){
+    SETLOAD(state) {
+      state.loading = !state.loading
+    },
+
+    SETANIMEALLTIME(state, response) {
       response.json().then((values) => {
-      state.animesAllTime=values;
+        state.animesAllTime = values;
       });
     },
 
-    SETANIMESEASON(state,response){
+    SETANIMESEASON(state, response) {
       response.json().then((values) => {
-      state.animesSeason=values;
+        state.animesSeason = values;
       });
     },
 
-    SETANIMEYEAR(state,response){
+    SETANIMEYEAR(state, response) {
       response.json().then((values) => {
-      state.animeYear=values;
+        state.animeYear = values;
       });
     },
 
-    SETANIMESEARCH(state,response){
-      response.json().then((values)=> {
-        state.animeSearch=values;
+    SETANIMESEARCH(state, response) {
+      response.json().then((values) => {
+        state.animeSearch = values;
       });
     },
 
   },
 
-  getters:{
-    GETANIMESEARCH(state){
+  getters: {
+    GETANIMESEARCH(state) {
       return state.animeSearch
     }
   },
 
   actions: {
-    getToken(context, credentials) {
-      context.commit('SETALERT','')
+    async getToken(context, credentials) {
+      context.commit('SETLOAD');
+      context.commit('SETALERT', '')
       fetch("http://otakurealm.mooo.com/api/login/", {
         method: "post",
         headers: {
@@ -88,7 +94,7 @@ export default createStore({
               return response.json();
             } else {
               console.log("erreur requete");
-             
+
               return null;
             }
           },
@@ -100,7 +106,8 @@ export default createStore({
           function (response) {
             if (response == null) {
               console.log('mdp ou username incorrect');
-              context.commit('SETALERT','mdp ou username incorrect')
+              context.commit('SETLOAD');
+              context.commit('SETALERT', 'mdp ou username incorrect')
               return null;
             }
             if (response.token != undefined) {
@@ -109,51 +116,55 @@ export default createStore({
               document.cookie = 'token = ' + response.token;
 
               context.commit('AUTHENTIFICATION');
-              
+
               if (context.state.authenticated == true) {
                 router.push("/");
+                context.commit('SETLOAD');
               }
             }
           }
         );
-       
+
     },
 
-    auth_logout(context){
-          context.commit('AUTHENTIFICATION');
-          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    },
-    authenticated(context){
+    auth_logout(context) {
       context.commit('AUTHENTIFICATION');
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    },
+    authenticated(context) {
+      context.commit('AUTHENTIFICATION');
+    },
+    load(context) {
+      context.commit('SETLOAD');
     },
 
     async getGenre(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/genre');
-      context.commit("SETGENRE",response);
+      context.commit("SETGENRE", response);
     },
 
-    async getAnimes(context){
+    async getAnimes(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/anime');
-      context.commit("SETANIME",response);
+      context.commit("SETANIME", response);
     },
-    async getAnimesTopAll(context){
+    async getAnimesTopAll(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/anime_allTime');
-      context.commit("SETANIMEALLTIME",response);
+      context.commit("SETANIMEALLTIME", response);
     },
-    async getAnimesSeason(context){
+    async getAnimesSeason(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/anime_saison');
-      context.commit("SETANIMESEASON",response);
+      context.commit("SETANIMESEASON", response);
     },
-    async getAnimesYear(context){
+    async getAnimesYear(context) {
       var response = await fetch('http://otakurealm.mooo.com/api/anime_annee');
-      context.commit("SETANIMEYEAR",response);
+      context.commit("SETANIMEYEAR", response);
     },
-    async getAnimeSearch(context,credentials){
-      var response = await fetch("http://otakurealm.mooo.com/api/recherche/?search="+credentials)
-      context.commit('SETANIMESEARCH',response);
+    async getAnimeSearch(context, credentials) {
+      var response = await fetch("http://otakurealm.mooo.com/api/recherche/?search=" + credentials)
+      context.commit('SETANIMESEARCH', response);
     }
   },
- 
+
   modules: {
   }
 })

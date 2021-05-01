@@ -73,6 +73,7 @@ export default {
   font-size: 18px;
   cursor: pointer;
   margin-left: 50%;
+  margin-top: 20px;
   transform: translate(-50%);
 }
 
