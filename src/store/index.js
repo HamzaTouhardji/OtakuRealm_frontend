@@ -91,11 +91,8 @@ export default createStore({
         .then(
           function (response) {
             if (response.status === 200) {
-              console.log('status ok!');
               return response.json();
             } else {
-              console.log("erreur requete");
-
               return null;
             }
           },
@@ -111,12 +108,8 @@ export default createStore({
               return null;
             }
             if (response.token != undefined) {
-              console.log('connexion...');
-              console.log(response.token); // faire la session et tout
               document.cookie = 'token = ' + response.token;
-
               context.commit('AUTHENTIFICATION');
-
               if (context.state.authenticated == true) {
                 router.push("/");
                 context.commit('SETLOAD');
