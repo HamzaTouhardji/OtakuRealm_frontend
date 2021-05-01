@@ -5,7 +5,7 @@
         <div class="featured-horizontal">
           <div class="featured-content">
             <div class="checkbox">
-              <h2>Renseignez vos genres favoris</h2>
+              <h2>Select your favorite genres</h2>
               <div class="genres">
                 <div
                   class="genre"
@@ -24,18 +24,17 @@
                   }}</label>
                 </div>
               </div>
-
-              <span>selected : {{ selected }} </span>
+              
               <input
-                class="btn"
+                class="btn search-box"
                 type="button"
                 name=""
-                value="Genres"
+                value="Confirm your choices"
                 @click="genres"
               />
             </div>
             <div class="checkbox">
-              <h2>Renseignez vos animes</h2>
+              <h2>Change your Watchlist</h2>
               <div class="search-box">
                 <input class="search-txt" id="search" type="text" name="" placeholder="type to search" value="" @keyup="getValue()">
                 <button class="search-btn">
@@ -44,10 +43,8 @@
               </div>
               <table class="table">
                 <thead>
+                  <th>image</th>
                   <th>title</th>
-                  <th>season</th>
-                  <th>number_of_episodes</th>
-                  <th>episode_duration</th>
                   <th>note</th>
                 </thead>
                 <tbody v-for="anime in $store.state.animeSearch" :key="anime.id">
@@ -61,23 +58,17 @@
                   />
                   <tr>
                     <td>
+                      <label class="noselect" v-bind:for="1000 + anime.id"><img
+              v-bind:src="anime.URL"
+              v-bind:alt="anime.title"
+              class="card-image"
+              draggable="false"
+              style="width : 4vw"
+            /></label>
+                    </td>
+                    <td>
                       <label class="noselect" v-bind:for="1000 + anime.id">{{
                         anime.title
-                      }}</label>
-                    </td>
-                    <td>
-                      <label class="noselect" v-bind:for="1000 + anime.id">{{
-                        anime.season
-                      }}</label>
-                    </td>
-                    <td>
-                      <label class="noselect" v-bind:for="1000 + anime.id">{{
-                        anime.number_of_episodes
-                      }}</label>
-                    </td>
-                    <td>
-                      <label class="noselect" v-bind:for="1000 + anime.id">{{
-                        anime.episode_duration
                       }}</label>
                     </td>
                     <td>
@@ -111,7 +102,6 @@
                   </tr>
                 </tbody>
               </table>
-              <span>selected : {{ selectedAnime }} </span>
             </div>
           </div>
         </div>
@@ -306,6 +296,8 @@ export default {
 </script>
 
 <style scoped>
+@import "https://use.fontawesome.com/releases/v5.15.3/css/all.css";
+
 .genres {
   display: flex;
   flex-wrap: wrap;
@@ -401,4 +393,43 @@ td {
   width: 200px;
   text-align: center;
 }
+  .search-btn{
+    color: white;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgb(78, 74, 74);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .search-txt{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 90%;
+
+  }
+
+  .search-box{
+    
+    background: rgb(78, 74, 74);
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+  }
+
+  .table{
+    width: 100%;
+    padding-top: 2vw;
+  }
 </style>

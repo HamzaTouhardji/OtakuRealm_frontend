@@ -109,7 +109,7 @@
                   class="btn"
                   type="button"
                   name=""
-                  value="Edit genres"
+                  value="Edit preferences"
                   @click="formulaire = false"
               /></router-link>
 
@@ -127,14 +127,42 @@
     </div>
 
     <div class="featured-content">
-      <div class="featured-content-title">Watchlist</div>
+      <div class="featured-content-title">Watchlist Reviewed</div>
     </div>
     <Carousel
       :settings="settings"
       :breakpoints="breakpoints"
       :key="selectedAnime"
     >
-      <Slide v-for="anime in selectedAnime" :key="anime">
+      <Slide v-for="anime in selectedAnimeRated" :key="anime">
+        <div class="carousel__item">
+          <a
+            v-bind:href="'#/detailanime?id=' + anime.id_anime.id"
+            draggable="false"
+          >
+            <img
+              v-bind:src="anime.id_anime.URL"
+              v-bind:alt="anime.id_anime.title"
+              class="card-image"
+              draggable="false"
+            />
+          </a>
+        </div>
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
+    <div class="featured-content">
+      <div class="featured-content-title">Watchlist not reviewed</div>
+    </div>
+    <Carousel
+      :settings="settings"
+      :breakpoints="breakpoints"
+      :key="selectedAnime"
+    >
+      <Slide v-for="anime in selectedAnimeNotRated" :key="anime">
         <div class="carousel__item">
           <a
             v-bind:href="'#/detailanime?id=' + anime.id_anime.id"
@@ -204,6 +232,8 @@ export default defineComponent({
     userInfo: [{}],
     selected: [],
     selectedAnime: [],
+    selectedAnimeRated: [],
+    selectedAnimeNotRated: [],
     listeRecommadation: [],
     recommandation: [],
     updateR: 0,
@@ -278,6 +308,18 @@ export default defineComponent({
         { headers }
       );
       this.selectedAnime = await response.json();
+      this.fillWatchlist();
+    },
+    fillWatchlist:function(){
+      for (let anime of this.selectedAnime){
+        if(anime.score >= 0){
+          this.selectedAnimeRated.push(anime)
+        }
+        else{
+          this.selectedAnimeNotRated.push(anime)
+        }
+
+      }
     },
     async getGenreUser() {
       let headers = { "Content-Type": "application/json" };

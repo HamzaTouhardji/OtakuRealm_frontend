@@ -23,7 +23,7 @@
                 
                 </div>
                 <div  class="genres">
-                <div class="genre" v-for="item in anime.genres" :key="item.id">
+                <div class="genre" v-for="item in animeGenre" :key="item.id">
                   <label class="noselect" v-bind:for="item">{{
                     item
                   }}</label>
@@ -42,7 +42,7 @@
                     @click="animes(anime.id)"
                   />
                 <label class="noselect ajoutAnime" v-bind:for="anime.id">
-                    Ajout à la watchlist
+                    Add to the Watchlist
                   </label>
                   <select class="noselect ajoutAnime" v-bind:id="anime.id-1000" v-if="selectedAnime.includes(anime.id)" @change="changeNote(anime.id-1000)">
                     <option value = -1>---</option>
@@ -94,6 +94,7 @@ export default ({
     anime: {},
     selectedAnime: [],
     selectedAnimeScore: [{}],
+    animeGenre: [],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -145,6 +146,15 @@ export default ({
       var id = this.$route.query.id
       var response = await fetch('http://otakurealm.mooo.com/api/anime/'+id)
       this.anime = await response.json();
+      this.getGenreAnime();
+    },
+    getGenreAnime:function(){
+        for (let score of this.$store.state.genre){
+          if (this.anime.genres.includes(score.id)){
+            this.animeGenre.push(score.name)
+            
+          }
+        }
     },
     async getAnimeUser() {
       let headers = { "Content-Type": "application/json" };
@@ -231,7 +241,10 @@ export default ({
           return(this.selectedAnimeScore.find(object => object.id === value).score)
       else
           return -1   },
-  }
+  },
+  mounted() {
+    this.$store.dispatch("getGenre");
+  },
 });
 
 

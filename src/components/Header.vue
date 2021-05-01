@@ -13,7 +13,10 @@
       <input
         type="text"
         class="search-bar-input"
+        id="searchHeader"
         placeholder="Search Animes here..."
+         value="" 
+         @keyup="getValue()"
       />
     </div>
     <div class="actions">
@@ -40,7 +43,16 @@ export default {
         this.$router.push("/login");
       });
     },
+    async getValue(){
+      let value=document.getElementById('searchHeader').value;
+      if(value.length>4)
+      {
+        await this.$store.dispatch('getAnimeSearch',value);
+
+      }
+    },
   },
+  
 };
 </script>
 
