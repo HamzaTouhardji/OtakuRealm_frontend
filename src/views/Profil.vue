@@ -127,7 +127,7 @@
     </div>
 
     <div class="featured-content">
-      <div class="featured-content-title">Watchlist Reviewed</div>
+      <div class="featured-content-title">Already seen</div>
     </div>
     <Carousel
       :settings="settings"
@@ -155,7 +155,7 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Watchlist not reviewed</div>
+      <div class="featured-content-title">Watchlist</div>
     </div>
     <Carousel
       :settings="settings"
