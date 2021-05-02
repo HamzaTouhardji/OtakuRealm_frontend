@@ -30,13 +30,7 @@
       ></span>
       <div v-else>
         <span class="error" id="errorname">{{ $store.state.alert }}</span>
-        <input
-          class="btn"
-          type="button"
-          name=""
-          value="Log-in"
-          @click="login"
-        />
+        <div class="button-effect"><span @click="login">Log in</span></div>
       </div>
     </div>
   </form>
@@ -76,7 +70,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 .login-box {
   width: 280px;
@@ -160,4 +154,40 @@ export default {
     transform: rotate(360deg);
   }
 }
+
+ .button-effect {
+    width: 100%;
+    height: 32px;
+    position: relative;
+    background: #c03a6d00;
+    margin-bottom: 25px;
+    border-radius: 32px;
+    border: solid 2px;
+    border-color: #c03a6d;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    span {
+      display: block;
+      line-height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      font-weight: semibold;
+    }
+    &:nth-child(2) {
+
+      color: #ffffff;
+      &:hover {
+        opacity: 1;
+        box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.863),
+          6px 6px 10px rgba(0, 0, 0, 0.2);
+      }
+      &:active {
+        opacity: 1;
+        box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
+          inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+        color: #ffffff;
+      }
+    }
+  }
 </style>

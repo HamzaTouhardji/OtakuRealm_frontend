@@ -64,20 +64,8 @@
               </div>
 
               <div class="buttons">
-                <input
-                  class="btn"
-                  type="button"
-                  name=""
-                  value="Save changes"
-                  @click="editProfil"
-                />
-                <input
-                  class="btn"
-                  type="button"
-                  name=""
-                  value="Cancel"
-                  @click="formulaire = false"
-                />
+                 <div class="button-effect"><span  @click="editProfil">Save changes</span></div>
+                 <div class="button-effect"><span  @click="formulaire = flase">Cancel</span></div>
               </div>
             </div>
           </div>
@@ -91,7 +79,7 @@
           <div class="featured-content">
             <div class="featured-content-title">Profil</div>
             <span class="featured-content-synopsis">
-              <img class="photo" v-bind:src="userInfo[0].photo_de_profil" />
+              <img class="photo" v-bind:src="userInfo[0].photo_de_profil" alt="" />
               <p>{{ userInfo[0].bio }}</p>
               <p>Sex: {{ userInfo[0].sexe }}</p>
               <p>Age: {{ userInfo[0].age }}</p>
@@ -104,22 +92,10 @@
               </div>
             </div>
             <div class="buttons" style="width: 300px">
-              <router-link class="link" to="/recommandation"
-                ><input
-                  class="btn"
-                  type="button"
-                  name=""
-                  value="Edit preferences"
-                  @click="formulaire = false"
-              /></router-link>
-
-              <input
-                class="btn"
-                type="button"
-                name=""
-                value="Edit profil"
-                @click="formulaire = true"
-              />
+              <router-link class="link" to="/recommandation">
+               <div class="button-effect"><span @click="formulaire = false">Edit preferences</span></div>
+               </router-link>
+               <div class="button-effect"><span  @click="formulaire = true">Edit profil</span></div>
             </div>
           </div>
         </div>
@@ -378,7 +354,7 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
+<style scoped lang="scss">
 option {
   background-color: #111;
   color: white;
@@ -402,6 +378,7 @@ option {
 }
 .link {
   width: 100%;
+  text-decoration: none;
 }
 .text-box {
   width: 100%;
@@ -594,4 +571,41 @@ label {
     height: calc(100vh - 60px);
   }
 }
+
+.button-effect {
+    width: 100%;
+    height: 32px;
+    position: relative;
+    background: #c03a6d00;
+    margin-bottom: 25px;
+    border-radius: 32px;
+    border: solid 2px;
+    border-color: #1e1e33;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    span {
+      
+      display: block;
+      line-height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      font-weight: semibold;
+    }
+    
+
+      color: #ffffff;
+      &:hover {
+        opacity: 1;
+        box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.863),
+          6px 6px 10px rgba(0, 0, 0, 0.2);
+      }
+      &:active {
+        opacity: 1;
+        box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
+          inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+        color: #ffffff;
+      }
+    
+  }
 </style>

@@ -25,13 +25,7 @@
                 </div>
               </div>
               
-              <input
-                class="btn search-box"
-                type="button"
-                name=""
-                value="Confirm your choices"
-                @click="genres"
-              />
+              <div class="button-effect"><span @click="genres">Confirm your choices</span></div>
             </div>
             <div class="checkbox">
               <h2>Change your Watchlist</h2>
@@ -295,7 +289,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @import "https://use.fontawesome.com/releases/v5.15.3/css/all.css";
 
 .genres {
@@ -431,5 +425,43 @@ td {
   .table{
     width: 100%;
     padding-top: 2vw;
+  }
+
+  .button-effect {
+    display: inline-block;
+    margin-top: 20px;
+    height: 32px;
+    position: relative;
+    background: #c03a6d00;
+    margin-bottom: 25px;
+    border-radius: 32px;
+    border: solid 2px;
+    border-color: #d42525;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    span {
+      margin-left: 2px;
+      margin-right: 2px;
+      display: block;
+      line-height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      font-weight: semibold;
+    }
+    
+
+      color: #ffffff;
+      &:hover {
+        opacity: 1;
+        box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.863),
+          6px 6px 10px rgba(0, 0, 0, 0.2);
+      }
+      &:active {
+        opacity: 1;
+        box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
+          inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+        color: #ffffff;
+      }
   }
 </style>
