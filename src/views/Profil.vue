@@ -13,7 +13,7 @@
                   type="text"
                   placeholder="Username"
                   name="username"
-                  v-model="user.username"
+                  v-model="$store.state.user.username"
                 />
               </div>
                <div class="text-box">
@@ -22,7 +22,7 @@
                   type="text"
                   placeholder="profil picture url"
                   name="url"
-                  v-model="user.photo_de_profil"
+                  v-model="$store.state.user.photo_de_profil"
                 />
               </div>
               <div class="text-box">
@@ -31,23 +31,21 @@
                   type="number"
                   placeholder="Age"
                   name="Age"
-                  v-model="user.age"
+                  v-model="$store.state.user.age"
                 />
               </div>
               <div class="text-box">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <select
-                  type="text"
                   placeholder="Sex"
-                  name="username"
-                  v-model="user.sexe"
+                  v-model="$store.state.user.sexe"
                 >
-                  <option selected value="M" v-if="'M' == user.sexe">
+                  <option selected value="M" v-if="'M' == $store.state.user.sexe">
                     Male
                   </option>
                   <option v-else value="M">Male</option>
 
-                  <option selected value="F" v-if="'F' == user.sexe">
+                  <option selected value="F" v-if="'F' == $store.state.user.sexe">
                     Female
                   </option>
                   <option v-else value="F">Female</option>
@@ -59,7 +57,7 @@
                   type="text"
                   placeholder="Bio"
                   name="bio"
-                  v-model="user.bio"
+                  v-model="$store.state.user.bio"
                 />
               </div>
 
@@ -79,19 +77,19 @@
           <div class="featured-content">
             <div class="featured-content-title">Profil</div>
             <span class="featured-content-synopsis">
-              <img class="photo" v-bind:src="userInfo[0].photo_de_profil" alt="" />
-              <p>{{ userInfo[0].bio }}</p>
-              <p>Sex: {{ userInfo[0].sexe }}</p>
-              <p>Age: {{ userInfo[0].age }}</p>
+              <img class="photo" v-bind:src="$store.state.user.photo_de_profil" alt="" />
+              <p>{{ $store.state.user.bio }}</p>
+              <p>Sex: {{ $store.state.user.sexe }}</p>
+              <p>Age: {{ $store.state.user.age }}</p>
             </span>
-            <div class="genres">
-              <div class="genre" v-for="item in selected" :key="item.id">
+            <div class="genres" :key="$store.state.userGenre">
+              <div class="genre" v-for="item in $store.state.userGenre" :key="item.id">
                 <label class="noselect" v-bind:for="item.id_genre.id">{{
                   item.id_genre.name
                 }}</label>
               </div>
             </div>
-            <div class="buttons">
+            <div class="buttons" style="width: 300px">
               <router-link class="link" to="/recommandation">
                <div class="button-effect"><span @click="formulaire = false">Edit preferences</span></div>
                </router-link>
@@ -103,14 +101,14 @@
     </div>
 
     <div class="featured-content">
-      <div class="featured-content-title">Already seen</div>
+      <div class="featured-content-title">Already reviewed</div>
     </div>
     <Carousel
       :settings="settings"
       :breakpoints="breakpoints"
-      :key="selectedAnime"
+      :key="$store.state.userAnime"
     >
-      <Slide v-for="anime in selectedAnimeRated" :key="anime">
+      <Slide v-for="anime in $store.state.userAnimeRated" :key="anime">
         <div class="carousel__item">
           <a
             v-bind:href="'#/detailanime?id=' + anime.id_anime.id"
@@ -131,14 +129,14 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Watchlist</div>
+      <div class="featured-content-title">Yet to be reviewed</div>
     </div>
     <Carousel
       :settings="settings"
       :breakpoints="breakpoints"
-      :key="selectedAnime"
+      :key="$store.state.userAnime"
     >
-      <Slide v-for="anime in selectedAnimeNotRated" :key="anime">
+      <Slide v-for="anime in $store.state.userAnimeNotRated" :key="anime">
         <div class="carousel__item">
           <a
             v-bind:href="'#/detailanime?id=' + anime.id_anime.id"
@@ -159,14 +157,14 @@
       </template>
     </Carousel>
     <div class="featured-content">
-      <div class="featured-content-title">Recommandation</div>
+      <div class="featured-content-title">Recommendation</div>
     </div>
     <Carousel
       :settings="settings"
       :breakpoints="breakpoints"
       :key="updateR"
     >
-      <Slide v-for="anime in recommandation" :key="anime">
+      <Slide v-for="anime in $store.state.recommandation" :key="anime">
         <div class="carousel__item">
           <a
             v-bind:href="'#/detailanime?id=' + anime.id"
@@ -205,15 +203,7 @@ export default defineComponent({
   },
   data: () => ({
     formulaire: false,
-    userInfo: [{}],
-    selected: [],
-    selectedAnime: [],
-    selectedAnimeRated: [],
-    selectedAnimeNotRated: [],
-    listeRecommadation: [],
-    recommandation: [],
     updateR: 0,
-    user: {},
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -239,14 +229,15 @@ export default defineComponent({
       },
     },
   }),
+  beforeCreate(){
+      this.$store.dispatch("getInfoUser");
+      this.$store.dispatch("getAnimeUser");
+      this.$store.dispatch("getGenreUser");
+  },
   async created() {
-    //Simple GET request using axios
-    //axios.get("http://otakurealm.mooo.com/api/recommandation").then(response => this.lesAnimes = response.data[0].title);
-    await this.getInfoUser();
-    await this.getAnimeUser();
-    await this.getGenreUser();
     await this.getRecommandationUser();
   },
+  
   methods: {
     getCookie: function (cname) {
       var name = cname + "=";
@@ -263,50 +254,6 @@ export default defineComponent({
       }
       return "";
     },
-    async getInfoUser() {
-      let headers = { "Content-Type": "application/json" };
-
-      headers["Authorization"] = `Token ` + this.getCookie("token");
-      var response = await fetch(
-        "http://otakurealm.mooo.com/api/info_utilisateur/",
-        { headers }
-      );
-      this.userInfo = await response.json();
-      this.user = this.userInfo[0];
-      //console.log(this.userInfo)
-    },
-    async getAnimeUser() {
-      let headers = { "Content-Type": "application/json" };
-
-      headers["Authorization"] = `Token ` + this.getCookie("token");
-      var response = await fetch(
-        "http://otakurealm.mooo.com/api/anime/utilisateur",
-        { headers }
-      );
-      this.selectedAnime = await response.json();
-      this.fillWatchlist();
-    },
-    fillWatchlist:function(){
-      for (let anime of this.selectedAnime){
-        if(anime.score >= 0){
-          this.selectedAnimeRated.push(anime)
-        }
-        else{
-          this.selectedAnimeNotRated.push(anime)
-        }
-
-      }
-    },
-    async getGenreUser() {
-      let headers = { "Content-Type": "application/json" };
-
-      headers["Authorization"] = `Token ` + this.getCookie("token");
-      var response = await fetch(
-        "http://otakurealm.mooo.com/api/genre/utilisateur",
-        { headers }
-      );
-      this.selected = await response.json();
-    },
     async getRecommandationUser() {
       let headers = { "Content-Type": "application/json" };
 
@@ -315,16 +262,14 @@ export default defineComponent({
         "http://otakurealm.mooo.com/api/recommandation/",
         { headers }
       );
-      this.listeRecommadation = await response.json();
+      this.$store.state.listeRecommadation = await response.json();
       this.getAnimes()
     },
     async getAnimes(){
-      console.log(this.listeRecommadation)
-      for (var recomm of this.listeRecommadation){
+      for (var recomm of this.$store.state.listeRecommadation){
       var response = await fetch('http://otakurealm.mooo.com/api/anime/'+recomm.id_anime)
-      this.recommandation.push(await response.json()) ;
+      this.$store.state.recommandation.push(await response.json()) ;
       }
-      console.log(this.recommandation);
       this.updateR+=1
     },
     editProfil: function () {
@@ -335,7 +280,7 @@ export default defineComponent({
       fetch("http://otakurealm.mooo.com/api/info_utilisateur/", {
         method: "PUT",
         headers,
-        body: JSON.stringify(this.user),
+        body: JSON.stringify(this.$store.state.user),
       }).then(
         function (response) {
           if (response.status === 200) {
@@ -361,9 +306,7 @@ option {
 }
 
 .buttons {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
 }
 
 .form-box {
@@ -575,8 +518,7 @@ label {
 }
 
 .button-effect {
-    display: inline-block;
-    width: 95%;
+    width: 100%;
     height: 32px;
     position: relative;
     background: #c03a6d00;
