@@ -89,7 +89,7 @@
                 }}</label>
               </div>
             </div>
-            <div class="buttons" style="width: 300px">
+            <div class="buttons">
               <router-link class="link" to="/recommandation">
                <div class="button-effect"><span @click="formulaire = false">Edit preferences</span></div>
                </router-link>
@@ -518,7 +518,7 @@ label {
 }
 
 .button-effect {
-    width: 100%;
+    width: 95%;
     height: 32px;
     position: relative;
     background: #c03a6d00;
