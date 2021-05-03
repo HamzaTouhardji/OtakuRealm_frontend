@@ -227,7 +227,7 @@ export default defineComponent({
 }
 
 .carousel__slide {
-  padding: 10px;
+  padding: 0 10px;
   width: 10%;
 }
 

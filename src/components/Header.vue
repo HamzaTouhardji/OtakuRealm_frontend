@@ -2,12 +2,11 @@
   <header class="header">
     <div class="menu-conatiner">
       <router-link to="/">
-        <span class="logo">OtakuRealm</span>
+        <img class="logo"
+     src="../assets/logo-complet.png"
+     alt="logo">
       </router-link>
-      <!--<div class="menu">
-        <router-link to="/" class="menu-link">Home</router-link>
-        <router-link to="/about" class="menu-link">About</router-link>
-      </div>-->
+
     </div>
     <div class="search-bar">
       <input
@@ -84,12 +83,7 @@ export default {
   color: #fd9330;
 }
 .logo {
-  font-weight: bold;
-  font-size: 18px;
-  color: #ececec;
-  text-transform: uppercase;
-  text-decoration: none;
-  -webkit-user-select: none;
+  width: 9.5rem;
 }
 
 .search-bar-input {
