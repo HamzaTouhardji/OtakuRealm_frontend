@@ -33,9 +33,17 @@ export default {
 
   },
   mounted() {    
-      if(this.getCookie('token')!="")
+      if(this.getCookie('token')!=""){
         this.$store.dispatch('authenticated');
-  }
+        this.$store.dispatch("getInfoUser");
+        this.$store.dispatch("getAnimeUser");
+        this.$store.dispatch("getGenreUser");
+      }
+      this.$store.dispatch("getAnimes");
+      this.$store.dispatch("getAnimesTopAll");
+      this.$store.dispatch("getAnimesSeason");
+      this.$store.dispatch("getAnimesYear");
+    }
 }
 
 </script>
